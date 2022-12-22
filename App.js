@@ -5,6 +5,8 @@ import Home from "./screens/Home";
 
 // export NODE_OPTIONS=--openssl-legacy-provider
 
+const Stack = createStackNavigator();
+
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -26,10 +28,11 @@ const App = () => {
 
   return (
     <NavigationContainer theme={theme}>
+
       <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="Home">
         <Stack.Screen name="Home" component={Home}/>
-        <Stack.Screen name="Details" component={Details}/>
       </Stack.Navigator>
+
     </NavigationContainer>
   );
 }
