@@ -1,11 +1,22 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme, StackActions } from "@react-navigation/native";
+import IonIcons from 'react-native-vector-icons/Ionicons'; 
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useFonts } from 'expo-font';
+import { COLORS, SIZES } from "./constants";
 import Home from "./screens/Home";
+import TakePhoto from "./screens/TakePhoto";
+import Profile from "./screens/Profile";
 
 // export NODE_OPTIONS=--openssl-legacy-provider
 
-const Stack = createStackNavigator();
+//const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+// screen names
+const homeName = "Home"
+const TakePhotoName = "TakePhoto"
+const ProfileName = "Profile"
 
 const theme = {
   ...DefaultTheme,
@@ -29,9 +40,33 @@ const App = () => {
   return (
     <NavigationContainer theme={theme}>
 
-      <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home}/>
-      </Stack.Navigator>
+      <Tab.Navigator  
+        initialRouteName={homeName}
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          activeTintColor: COLORS.secondary,
+          inactiveTintColor: COLORS.gray,
+          labelStyle: { fontSize: 12 },
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            let rn = route.name;
+
+            if (rn === homeName) {
+              iconName = focused ? 'home' : 'home-outline';
+            } else if (rn === TakePhotoName) {
+              iconName = focused ? 'camera' : 'camera-outline';
+            } else if (rn === ProfileName) {
+              iconName = focused ? 'person' : 'person-outline';
+            } 
+            
+            return <IonIcons name={iconName} size={size} color={color} />;
+          },
+        })}>
+
+        <Tab.Screen name="Home" component={Home}/>
+        <Tab.Screen name="TakePhoto" component={TakePhoto}/>
+        <Tab.Screen name="Profile" component={Profile}/>
+      </Tab.Navigator>
 
     </NavigationContainer>
   );

@@ -26,8 +26,11 @@ const Home = () => {
 
   return (
     <SafeAreaView>
-      <FocusedStatusBar background={COLORS.primary} />
-
+      <FocusedStatusBar 
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent={true}
+      />
       <View>
         <View>
           <FlatList 
