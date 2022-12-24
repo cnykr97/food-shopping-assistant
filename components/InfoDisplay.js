@@ -27,13 +27,16 @@ const InfoDisplay = ({product}) => {
         backgroundColor: backgroundColor,
         paddingHorizontal: SIZES.large
     }} >
-        <Image 
-        source={isSuitable ? assets.checkIcon : assets.attentionIcon } 
-        style={{ width:60, height:60 }}
-        />
-        <Text style={{ color: COLORS.white, fontFamily: FONTS.semiBold, fontSize: SIZES.font}} >
-            {isSuitable ? "This product is suitable to your preferences!" : "This product is not suitable to your preferences! "}
-        </Text>
+        <View style={{display:"flex", justifyContent:"center", alignItems:"center", flexDirection:"row", marginLeft: -SIZES.small}} >
+            <Image 
+            source={isSuitable ? assets.checkIcon : assets.attentionIcon } 
+            style={{ width:60, height:60 }}
+            />
+            <Text style={{ color: COLORS.white, fontFamily: FONTS.semiBold, fontSize: SIZES.font}} >
+                {isSuitable ? "This product is suitable to your preferences!" : "This product is not suitable to your preferences! "}
+            </Text>
+        </View>
+            
     </View>
   )
 }
