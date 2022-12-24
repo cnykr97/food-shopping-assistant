@@ -74,7 +74,7 @@ const HomeHeader = ({onSearch}) => {
           </View>
 
         <Text style={{ fontFamily: FONTS.bold, fontSize: SIZES.large, marginTop: SIZES.font, marginBottom: -SIZES.font }} >
-          Here are some suggesitons for you!
+          Here are some suggestions for you!
         </Text>
       </View>
 

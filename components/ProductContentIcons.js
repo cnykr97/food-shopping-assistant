@@ -1,6 +1,6 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
-import { assets } from '../constants'
+import { assets, SIZES } from '../constants'
 
 const ProductContentIcons = ({product}) => {
   return (
@@ -11,10 +11,11 @@ const ProductContentIcons = ({product}) => {
         display:"flex",
         flexDirection: "row",
         justifyContent:"center",
-        alignItems:"center"
+        alignItems:"center",
+        paddingLeft: SIZES.small
     }} >
-      { product.isGlutenFree ? <Image source={assets.glutenFreeIcon} style={{width: 50, height: 50, marginBottom:-10 }} /> : null}
-      { product.isLactoseFree ? <Image source={assets.lactoseFreeIcon} style={{width: 50, height: 50}}/> : null}
+      { product.isGlutenFree ? <Image source={assets.glutenFreeIcon} style={{width: 60, height: 60, marginBottom:-10 }} /> : null}
+      { product.isLactoseFree ? <Image source={assets.lactoseFreeIcon} style={{width: 60, height: 60}}/> : null}
       { product.isVegan ? <Image source={assets.veganIcon} style={{width: 50, height: 50}}/> : null}
     </View>
   )

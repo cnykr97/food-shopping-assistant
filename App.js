@@ -7,10 +7,12 @@ import { COLORS, SIZES } from "./constants";
 import Home from "./screens/Home";
 import TakePhoto from "./screens/TakePhoto";
 import Profile from "./screens/Profile";
+import ProductDetails from "./screens/ProductDetails";
+import { View } from "react-native";
 
 // export NODE_OPTIONS=--openssl-legacy-provider
 
-//const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 // screen names
@@ -59,13 +61,14 @@ const App = () => {
               iconName = focused ? 'person' : 'person-outline';
             } 
             
-            return <IonIcons name={iconName} size={size} color={color} />;
+            return <IonIcons name={iconName} size={size} color={color} />
           },
         })}>
 
         <Tab.Screen name="Home" component={Home}/>
         <Tab.Screen name="TakePhoto" component={TakePhoto}/>
         <Tab.Screen name="Profile" component={Profile}/>
+        <Tab.Screen name="ProductDetails" component={ProductDetails} options={{ tabBarButton: () => <View style={{ width:0, height:0 }} ></View> }} />
       </Tab.Navigator>
 
     </NavigationContainer>

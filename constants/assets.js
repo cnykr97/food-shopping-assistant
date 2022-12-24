@@ -7,6 +7,15 @@ import heartIcon from "../assets/icons/heart-icon.png";
 import glutenFreeIcon from "../assets/icons/gluten-free-icon.png";
 import lactoseFreeIcon from "../assets/icons/lactose-free-icon.png";
 import veganIcon from "../assets/icons/vegan-icon.png";
+import checkIcon from "../assets/icons/check-icon.png";
+import attentionIcon from "../assets/icons/attention-icon.png";
+import caloriesIcon from "../assets/icons/calories-icon.png";
+import sugarIcon from "../assets/icons/sugar-icon.png";
+import carbsIcon from "../assets/icons/carbs-icon.png";
+import proteinIcon from "../assets/icons/protein-icon.png";
+import saltIcon from "../assets/icons/salt-icon.png";
+import fatIcon from "../assets/icons/fat-icon.png";
+import fiberIcon from "../assets/icons/fiber-icon.png";
 
 import logo from "../assets/images/logo.png"
 
@@ -26,6 +35,15 @@ export default {
     glutenFreeIcon,
     lactoseFreeIcon,
     veganIcon,
+    checkIcon,
+    attentionIcon,
+    caloriesIcon,
+    sugarIcon,
+    carbsIcon,
+    proteinIcon,
+    saltIcon,
+    fatIcon,
+    fiberIcon,
     
     logo,
     p0,

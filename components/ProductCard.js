@@ -16,7 +16,7 @@ const ProductCard = ({ product }) => {
         }}
         >
         <View style={{width:"100%", height:250}} >
-          <TouchableOpacity onPress={() => navigation.navigate("ProductDetails", {product}) } >
+          <TouchableOpacity onPress={() => navigation.navigate("ProductDetails", {product, navigation}) } >
             <Image 
                 source={product.image}
                 resizeMode="contain"
