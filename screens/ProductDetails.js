@@ -3,8 +3,6 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { CircularButton, FocusedStatusBar, ProductCard } from '../components'
 import { assets, FONTS, SIZES } from '../constants'
-import ProductContentIcons from '../components/ProductContentIcons'
-import { FlatList } from 'react-native-gesture-handler'
 import ContentRow from '../components/ContentRow'
 import InfoDisplay from '../components/InfoDisplay'
 

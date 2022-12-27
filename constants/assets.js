@@ -16,6 +16,7 @@ import proteinIcon from "../assets/icons/protein-icon.png";
 import saltIcon from "../assets/icons/salt-icon.png";
 import fatIcon from "../assets/icons/fat-icon.png";
 import fiberIcon from "../assets/icons/fiber-icon.png";
+import takePictureIcon from "../assets/icons/take-picture-icon.png";
 
 import logo from "../assets/images/logo.png"
 
@@ -44,6 +45,7 @@ export default {
     saltIcon,
     fatIcon,
     fiberIcon,
+    takePictureIcon,
     
     logo,
     p0,
