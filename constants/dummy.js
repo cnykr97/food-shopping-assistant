@@ -12,6 +12,7 @@ const ProductData = [
     {
         id: 0,
         name: "Eti Lifalif Granola Kuru Vişneli, Kakao Parçacıklı, Fındıklı",
+        trained_name: "granola",
         weight: "200g",
         image: assets.p0,
         category: "kahvaltılık, kahvaltılık gevrek",
@@ -32,6 +33,7 @@ const ProductData = [
     {
         id: 1,
         name: "Milka Fındıklı Çikolata",
+        trained_name: "milka_findikli",
         weight: "80g",
         image: assets.p1,
         category: "atıştırmalık, çikolata",
@@ -52,6 +54,7 @@ const ProductData = [
     {
         id: 2,
         name: "İçim Fit Protein Kahveli Laktozsuz Süt",
+        trained_name: "icim_fit",
         weight: "500ML",
         image: assets.p2,
         category: "Süt, Sporcu, fit",
@@ -71,7 +74,8 @@ const ProductData = [
     },
     {
         id: 3,
-        name: "cizi",
+        name: "Ülker Çizi Kraker",
+        trained_name: "granola",
         weight: "70g",
         image: assets.p3,
         category: "atıştırmalık, kraker, tuzlu",
@@ -91,7 +95,8 @@ const ProductData = [
     },
     {
         id: 4,
-        name: "laviva",
+        name: "Ülker Laviva Dolgu Ve Bisküvi Çikolata",
+        trained_name: "granola",
         weight: "35",
         image: assets.p4,
         category: "atıştırmalık, çikolata, bar",

@@ -68,7 +68,7 @@ const TakePhoto = () => {
       const response = await axios.post('http://34.240.229.186/photo', data, config);
       setIsLoading(false);
       for (const product of ProductData) {
-        if (product.name === Object.values(response.data)[1]) {
+        if (product.trained_name === Object.values(response.data)[1]) {
           navigation2.navigate("ProductDetails", {product, navigation2});
         }
       }
