@@ -50,11 +50,10 @@ const TakePhoto = () => {
 
     let newPhoto = await cameraRef.current.takePictureAsync(options);
     setPhoto(newPhoto)
-
+    setIsLoading(true)
   };
 
   if (photo) {
-
     let data = new FormData();
     data.append('file', { uri: photo.uri, name: 'photo.png', filename: 'imageName.jpg', type: 'image/jpg' });
 
@@ -68,20 +67,29 @@ const TakePhoto = () => {
 
     axios.post('http://34.240.229.186/photo', data, config)
     .then( (response) => {
+      setIsLoading(false)
       for (const product of ProductData) {
-        if (product.name === Object.values(response.data)[1]) {}
-        navigation2.navigate("ProductDetails", {product, navigation2})
+        if (product.name === Object.values(response.data)[1]) {
+          navigation2.navigate("ProductDetails", {product, navigation2})
+        }
       }
     })
+    .catch((err)=>setIsLoading(false))
   }
 
-  return (
+  if (isLoading){
+    return <LoadingScreen/>
+  }else {
+    return (
     <Camera style={styles.container} ref={cameraRef}>
       <View style={styles.buttonContainer}>
         <CircularButton imgUrl={assets.takePictureIcon} handlePress={takePic} width={100} height={100} backgroundColor={"transparent"} borderWidth={3} borderColor={COLORS.white} borderRadius={"50%"} />
       </View>
     </Camera>
   );
+  }
+
+  
 }
 
 const styles = StyleSheet.create({
