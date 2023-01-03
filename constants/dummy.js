@@ -75,7 +75,7 @@ const ProductData = [
     {
         id: 3,
         name: "Ülker Çizi Kraker",
-        trained_name: "granola",
+        trained_name: "cizi",
         weight: "70g",
         image: assets.p3,
         category: "atıştırmalık, kraker, tuzlu",
@@ -96,7 +96,7 @@ const ProductData = [
     {
         id: 4,
         name: "Ülker Laviva Dolgu Ve Bisküvi Çikolata",
-        trained_name: "granola",
+        trained_name: "laviva",
         weight: "35",
         image: assets.p4,
         category: "atıştırmalık, çikolata, bar",
