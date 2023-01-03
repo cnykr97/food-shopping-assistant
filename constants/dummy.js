@@ -68,6 +68,46 @@ const ProductData = [
         isCeliacFree: true,
         isLactoseFree: true,
         isVegan: false
+    },
+    {
+        id: 3,
+        name: "cizi",
+        weight: "70g",
+        image: assets.p3,
+        category: "atıştırmalık, kraker, tuzlu",
+        content: {
+            calories: 456.0,
+            sugar: 7.3,
+            carbs: 61.0,
+            protein: 1.8,
+            salt: 7.7,
+            fat: 20.0,
+            fiber: 0.5
+        },
+        isGlutenFree: false,
+        isCeliacFree: false,
+        isLactoseFree: true,
+        isVegan: true
+    },
+    {
+        id: 4,
+        name: "laviva",
+        weight: "35",
+        image: assets.p4,
+        category: "atıştırmalık, çikolata, bar",
+        content: {
+            calories: 540.0,
+            sugar: 46.0,
+            carbs: 54.0,
+            protein: 7.1,
+            salt: 0.13,
+            fat: 32.0,
+            fiber: 3.6
+        },
+        isGlutenFree: false,
+        isCeliacFree: false,
+        isLactoseFree: false,
+        isVegan: false
     }
 ]
 

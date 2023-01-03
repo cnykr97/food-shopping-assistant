@@ -5,15 +5,26 @@ import { Camera } from 'expo-camera';
 import { shareAsync } from 'expo-sharing';
 import * as MediaLibrary from 'expo-media-library';
 import { CircularButton} from '../components'
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { assets, COLORS, FONTS, SIZES } from '../constants';
+import axios from 'axios';
+import { ProductData } from '../constants';
+import { useNavigation } from '@react-navigation/native';
+
+const LoadingScreen = () => {
+  return <SafeAreaView style={{display:"flex", justifyContent:"center", alignItems:"center", backgroundColor:COLORS.white, height:"100%", width:"100%"}} >
+    <Image source={assets.logo} resizeMode="contain" style={{width:120, height:100}} />
+    <Text style={{fontFamily: FONTS.semiBold, color:COLORS.secondary}} > Scanning the image... </Text>
+  </SafeAreaView>
+}
 
 const TakePhoto = () => {
+  let navigation2 = useNavigation();
 
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState();
   const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState();
   const [photo, setPhoto] = useState();
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -30,7 +41,7 @@ const TakePhoto = () => {
     return <Text>Permission for camera not granted. Please change this in settings.</Text>
   }
 
-  let takePic = async () => {
+  const takePic = async () => {
     let options = {
       quality: 1,
       base64: true,
@@ -38,30 +49,30 @@ const TakePhoto = () => {
     };
 
     let newPhoto = await cameraRef.current.takePictureAsync(options);
-    setPhoto(newPhoto);
+    setPhoto(newPhoto)
+
   };
 
   if (photo) {
-    let sharePic = () => {
-      shareAsync(photo.uri).then(() => {
-        setPhoto(undefined);
-      });
+
+    let data = new FormData();
+    data.append('file', { uri: photo.uri, name: 'photo.png', filename: 'imageName.jpg', type: 'image/jpg' });
+
+    let config = {
+      headers: { 
+        'accept': 'application/json',
+        'Content-Type': 'multipart/form-data',
+        'responseType': 'json'
+      }
     };
 
-    let savePhoto = () => {
-      MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
-        setPhoto(undefined);
-      });
-    };
-
-    return (
-      <SafeAreaView style={styles.container}>
-        <Image style={styles.preview} source={{ uri: "data:image/jpg;base64," + photo.base64 }} />
-        <Button title="Share" onPress={sharePic} />
-        {hasMediaLibraryPermission ? <Button title="Save" onPress={savePhoto} /> : undefined}
-        <Button title="Discard" onPress={() => setPhoto(undefined)} />
-      </SafeAreaView>
-    );
+    axios.post('http://34.240.229.186/photo', data, config)
+    .then( (response) => {
+      for (const product of ProductData) {
+        if (product.name === Object.values(response.data)[1]) {}
+        navigation2.navigate("ProductDetails", {product, navigation2})
+      }
+    })
   }
 
   return (
