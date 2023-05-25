@@ -90,8 +90,8 @@ const ProductData = [
         },
         isGlutenFree: false,
         isCeliacFree: false,
-        isLactoseFree: true,
-        isVegan: true
+        isLactoseFree: false,
+        isVegan: false
     },
     {
         id: 4,
@@ -108,6 +108,90 @@ const ProductData = [
             salt: 0.13,
             fat: 32.0,
             fiber: 3.6
+        },
+        isGlutenFree: false,
+        isCeliacFree: false,
+        isLactoseFree: false,
+        isVegan: false
+    },
+    {
+        id: 5,
+        name: "Tadelle Fındık Dolgulu Sütlü Çikolata",
+        trained_name: "tadelle",
+        weight: "30",
+        image: assets.p5,
+        category: "atıştırmalık, çikolata, sütlü, fındıklı",
+        content: {
+            calories: 574.0,
+            sugar: 46.7,
+            carbs: 52.8,
+            protein: 9.3,
+            salt: 0.2,
+            fat: 35.3,
+            fiber: 3.6
+        },
+        isGlutenFree: true,
+        isCeliacFree: true,
+        isLactoseFree: false,
+        isVegan: false
+    },
+    {
+        id: 6,
+        name: "Ruffles Ketçaplı Patates Cipsi",
+        trained_name: "ruffles_ketcap",
+        weight: "107",
+        image: assets.p6,
+        category: "atıştırmalık, cips, papates cipsi",
+        content: {
+            calories: 537,
+            sugar: 2.9,
+            carbs: 52.8,
+            protein: 5.9,
+            salt: 1.2,
+            fat: 32.7,
+            fiber: 3.9
+        },
+        isGlutenFree: false,
+        isCeliacFree: false,
+        isLactoseFree: true,
+        isVegan: true
+    },
+    {
+        id: 7,
+        name: "Ülker Tuzlu Çubuk Kraker",
+        trained_name: "ulker_kraker",
+        weight: "40",
+        image: assets.p7,
+        category: "atıştırmalık, kraker, tuzlu",
+        content: {
+            calories: 402,
+            sugar: 0.0,
+            carbs: 73,
+            protein: 11.8,
+            salt: 4.3,
+            fat: 6.3,
+            fiber: 2.6
+        },
+        isGlutenFree: false,
+        isCeliacFree: false,
+        isLactoseFree: true,
+        isVegan: true
+    },
+    {
+        id: 8,
+        name: "Dido Trio Beyaz-Sütlü-Bitter Çikolatalı Gofret ",
+        trained_name: "dido_trio",
+        weight: "36",
+        image: assets.p8,
+        category: "atıştırmalık, çikolatalı gofret",
+        content: {
+            calories: 552,
+            sugar: 41.2,
+            carbs: 51.4,
+            protein: 3.4,
+            salt: 2.1,
+            fat: 5.2,
+            fiber: 1.3
         },
         isGlutenFree: false,
         isCeliacFree: false,
