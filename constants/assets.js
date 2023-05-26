@@ -17,6 +17,9 @@ import saltIcon from "../assets/icons/salt-icon.png";
 import fatIcon from "../assets/icons/fat-icon.png";
 import fiberIcon from "../assets/icons/fiber-icon.png";
 import takePictureIcon from "../assets/icons/take-picture-icon.png";
+import logoutIcon from "../assets/icons/logout.png";
+import logoutIconWhite from "../assets/icons/logout-white.png";
+import changeIcon from "../assets/icons/change.png";
 
 import logo from "../assets/images/logo.png"
 
@@ -29,6 +32,9 @@ import p5 from "../assets/images/p5.png"
 import p6 from "../assets/images/p6.png"
 import p7 from "../assets/images/p7.png"
 import p8 from "../assets/images/p8.png"
+
+import pp0 from "../assets/images/pp0.png"
+import pp1 from "../assets/images/pp1.png"
 
 
 
@@ -52,8 +58,12 @@ export default {
     fatIcon,
     fiberIcon,
     takePictureIcon,
+    changeIcon,
+    logoutIcon,
+    logoutIconWhite,
     
     logo,
+
     p0,
     p1,
     p2,
@@ -62,5 +72,8 @@ export default {
     p5,
     p6,
     p7,
-    p8
+    p8,
+
+    pp0,
+    pp1
 }

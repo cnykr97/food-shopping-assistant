@@ -1,7 +1,7 @@
 import { View, Text, Image, TextInput } from 'react-native'
 import {COLORS, FONTS, SIZES, assets} from '../constants'
 
-const HomeHeader = ({onSearch}) => {
+const HomeHeader = ({onSearch, user}) => {
   return (
     <View style={{
         backgroundColor: COLORS.white,
@@ -43,7 +43,7 @@ const HomeHeader = ({onSearch}) => {
 
       <View style={{marginVertical: SIZES.font}} >
         <Text style={{fontFamily:FONTS.regular, fontSize: SIZES.small}} >
-          Hello, Beyza 👋
+          {"Hello " + user.userName + " 👋"}
         </Text>
 
         <View style={{ marginTop: SIZES.font }} >

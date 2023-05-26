@@ -7,6 +7,35 @@ const userPreferences = {
         isVegan: false
     }
 
+const users = [
+    {
+        id: 0,
+        userName: 'John',
+        email: 'john@example.com',
+        password: '123',
+        profilePicture: assets.pp0,
+        preferences: {
+            isGlutenFree: true,
+            isCeliacFree: false,
+            isLactoseFree: false,
+            isVegan: false
+        }
+    },
+    {
+        id: 1,
+        userName: 'Jane',
+        email: 'jane@example.com',
+        password: '123',
+        profilePicture: assets.pp1,
+        preferences: {
+            isGlutenFree: false,
+            isCeliacFree: false,
+            isLactoseFree: true,
+            isVegan: true 
+        }
+    }
+]
+
 
 const ProductData = [
     {
@@ -137,7 +166,7 @@ const ProductData = [
     },
     {
         id: 6,
-        name: "Ruffles Ketçaplı Patates Cipsi",
+        name: "Ruffles Ketçaplı Patates Cips",
         trained_name: "ruffles_ketcap",
         weight: "107",
         image: assets.p6,
@@ -200,4 +229,4 @@ const ProductData = [
     }
 ]
 
-export { ProductData, userPreferences }
+export { ProductData, userPreferences, users }

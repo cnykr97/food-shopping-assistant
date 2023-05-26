@@ -6,7 +6,9 @@ import { FlatList } from 'react-native-gesture-handler'
 import {ProductCard, HomeHeader, FocusedStatusBar} from '../components'
 
 
-const Home = () => {
+const Home = ({ route }) => {
+
+  const { user } = route.params
 
   const [productData, setProductData] = useState(ProductData)
 
@@ -38,7 +40,7 @@ const Home = () => {
             renderItem= { ({item}) => <ProductCard product={item} /> }
             keyExtractor={(item) => item.id}
             showsVerticalScrollIndicator={false}
-            ListHeaderComponent={<HomeHeader onSearch={handleSearch} />}
+            ListHeaderComponent={<HomeHeader onSearch={handleSearch} user={user} />}
           />
         </View>
 

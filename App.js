@@ -3,7 +3,7 @@ import { NavigationContainer, DefaultTheme, StackActions } from "@react-navigati
 import IonIcons from 'react-native-vector-icons/Ionicons'; 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useFonts } from 'expo-font';
-import { COLORS, SIZES } from "./constants";
+import { COLORS, SIZES, users } from "./constants";
 import Home from "./screens/Home";
 import TakePhoto from "./screens/TakePhoto";
 import Profile from "./screens/Profile";
@@ -65,9 +65,9 @@ const App = () => {
           },
         })}>
 
-        <Tab.Screen name="Home" component={Home}/>
+        <Tab.Screen name="Home" component={Home} initialParams={{user: users[1]}} />
         <Tab.Screen name="TakePhoto" component={TakePhoto}/>
-        <Tab.Screen name="Profile" component={Profile}/>
+        <Tab.Screen name="Profile" component={Profile} initialParams={{user: users[1]}} />
         <Tab.Screen name="ProductDetails" component={ProductDetails} options={{ tabBarButton: () => <View style={{ width:0, height:0 }} ></View> }} />
       </Tab.Navigator>
 
