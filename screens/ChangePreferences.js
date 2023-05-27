@@ -27,7 +27,7 @@ const ChangePreferences = ({ route, navigation }) => {
                 translucent={true}
             />
             <CircularButton imgUrl={assets.left} handlePress={() => navigation.navigate('Profile')}  top={SIZES.extraLarge*3} left={SIZES.small} width={50} height={50} />
-            <View style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBottom: SIZES.extraLarge*3}} >
+            <View style={styles.header} >
                 <Image source={assets.logo} resizeMode="contain" style={{width:240, height:200}} />
             </View>
 
@@ -81,6 +81,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 20,
         backgroundColor: '#fff',
+    },
+    header: {
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        paddingBottom: SIZES.extraLarge,
+        marginBottom: SIZES.extraLarge, 
+        borderBottomWidth: '2px solid', 
+        borderBottomColor: COLORS.secondary
     },
     preference: {
         flexDirection: 'row',

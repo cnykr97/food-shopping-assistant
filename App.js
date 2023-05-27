@@ -11,6 +11,7 @@ import ProductDetails from "./screens/ProductDetails";
 import ChangePreferences from "./screens/ChangePreferences";
 import { View } from "react-native";
 import Baskets from "./screens/Baskets";
+import Favorites from "./screens/Favorites";
 
 // export NODE_OPTIONS=--openssl-legacy-provider
 
@@ -75,6 +76,7 @@ const App = () => {
         <Tab.Screen name="ProductDetails" component={ProductDetails} options={{ tabBarButton: HiddenTabBarButton }} />
         <Tab.Screen name="ChangePreferences" component={ChangePreferences} options={{ tabBarButton: HiddenTabBarButton }} />
         <Tab.Screen name="Baskets" component={Baskets} options={{ tabBarButton: HiddenTabBarButton }} />
+        <Tab.Screen name="Favorites" component={Favorites} options={{ tabBarButton: HiddenTabBarButton }} />
       </Tab.Navigator>
 
     </NavigationContainer>

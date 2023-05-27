@@ -34,7 +34,7 @@ const Profile = ({ route }) => {
             </View>
 
             <View style={styles.bottomSection}>
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => console.log("Favorites Pressed")}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate("Favorites", {user, navigation})}>
                   <Image 
                     source={assets.heartIcon} 
                     resizeMode="contain"  
