@@ -15,8 +15,7 @@ const ChangePreferences = ({ route, navigation }) => {
 
 
     const saveChanges = () => {
-        // Here, you should implement the logic to update the user preferences
-        // After updating, you can navigate back to the Profile screen
+        
         navigation.navigate('Profile');
     };
 

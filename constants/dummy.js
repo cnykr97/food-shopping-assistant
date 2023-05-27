@@ -1,42 +1,5 @@
 import assets from "./assets"
 
-const userPreferences = {
-        isGlutenFree: true,
-        isCeliacFree: false,
-        isLactoseFree: false,
-        isVegan: false
-    }
-
-const users = [
-    {
-        id: 0,
-        userName: 'Jane Doe',
-        email: 'janedoe@example.com',
-        password: '123',
-        profilePicture: assets.pp0,
-        preferences: {
-            isGlutenFree: true,
-            isCeliacFree: false,
-            isLactoseFree: false,
-            isVegan: false
-        }
-    },
-    {
-        id: 1,
-        userName: 'John Smith',
-        email: 'johnsmith@example.com',
-        password: '123',
-        profilePicture: assets.pp1,
-        preferences: {
-            isGlutenFree: false,
-            isCeliacFree: false,
-            isLactoseFree: true,
-            isVegan: true 
-        }
-    }
-]
-
-
 const ProductData = [
     {
         id: 0,
@@ -226,6 +189,94 @@ const ProductData = [
         isCeliacFree: false,
         isLactoseFree: false,
         isVegan: false
+    }
+]
+
+const userPreferences = {
+        isGlutenFree: true,
+        isCeliacFree: false,
+        isLactoseFree: false,
+        isVegan: false
+    }
+
+const users = [
+    {
+        id: 0,
+        userName: 'Jane Doe',
+        email: 'janedoe@example.com',
+        password: '123',
+        profilePicture: assets.pp0,
+        preferences: {
+            isGlutenFree: true,
+            isCeliacFree: false,
+            isLactoseFree: false,
+            isVegan: false
+        },
+        favorites: [
+            ProductData[3], ProductData[4], ProductData[5]
+        ],
+        baskets: [
+            {
+                basketName: 'after sports',
+                totalCalories: ProductData[2].content.calories + ProductData[5].content.calories + ProductData[7].content.calories ,
+                items: [
+                    ProductData[2], ProductData[5], ProductData[7]
+                ]
+            },
+            {
+                basketName: 'basket2',
+                totalCalories: ProductData[3].content.calories + ProductData[4].content.calories + ProductData[5].content.calories ,
+                items: [
+                    ProductData[3], ProductData[4], ProductData[5]
+                ]
+            },
+            {
+                basketName: 'basket3',
+                totalCalories: ProductData[1].content.calories + ProductData[6].content.calories + ProductData[8].content.calories ,
+                items: [
+                    ProductData[1], ProductData[6], ProductData[8]
+                ]
+            }
+        ]
+    },
+    {
+        id: 1,
+        userName: 'John Smith',
+        email: 'johnsmith@example.com',
+        password: '123',
+        profilePicture: assets.pp1,
+        preferences: {
+            isGlutenFree: false,
+            isCeliacFree: false,
+            isLactoseFree: true,
+            isVegan: true 
+        },
+        favorites: [
+            ProductData[3], ProductData[4], ProductData[5]
+        ],
+        baskets: [
+            {
+                basketName: 'after sports',
+                totalCalories: ProductData[2].content.calories + ProductData[5].content.calories + ProductData[7].content.calories ,
+                items: [
+                    ProductData[2], ProductData[5], ProductData[7]
+                ]
+            },
+            {
+                basketName: 'basket2',
+                totalCalories: ProductData[3].content.calories + ProductData[4].content.calories + ProductData[5].content.calories ,
+                items: [
+                    ProductData[3], ProductData[4], ProductData[5]
+                ]
+            },
+            {
+                basketName: 'basket3',
+                totalCalories: ProductData[1].content.calories + ProductData[6].content.calories + ProductData[8].content.calories ,
+                items: [
+                    ProductData[1], ProductData[6], ProductData[8]
+                ]
+            }
+        ]
     }
 ]
 

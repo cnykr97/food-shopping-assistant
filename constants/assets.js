@@ -21,6 +21,7 @@ import logoutIcon from "../assets/icons/logout.png";
 import logoutIconWhite from "../assets/icons/logout-white.png";
 import changeIcon from "../assets/icons/change.png";
 import createBasketIcon from "../assets/icons/create-basket.png";
+import plusWhite from "../assets/icons/plus-white.png";
 
 import logo from "../assets/images/logo.png"
 
@@ -33,6 +34,8 @@ import p5 from "../assets/images/p5.png"
 import p6 from "../assets/images/p6.png"
 import p7 from "../assets/images/p7.png"
 import p8 from "../assets/images/p8.png"
+
+import basketScreenHeaderImage from "../assets/images/basketScreenHeaderImage.png"
 
 import pp0 from "../assets/images/pp0.png"
 import pp1 from "../assets/images/pp1.png"
@@ -63,6 +66,7 @@ export default {
     logoutIcon,
     logoutIconWhite,
     createBasketIcon,
+    plusWhite,
     
     logo,
 
@@ -75,6 +79,8 @@ export default {
     p6,
     p7,
     p8,
+
+    basketScreenHeaderImage,
 
     pp0,
     pp1
