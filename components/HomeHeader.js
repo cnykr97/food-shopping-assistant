@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput } from 'react-native'
+import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 import {COLORS, FONTS, SIZES, assets} from '../constants'
 
 const HomeHeader = ({onSearch, user}) => {
@@ -13,7 +13,15 @@ const HomeHeader = ({onSearch, user}) => {
         alignItems: "center"
       }} >
         <Image source={assets.logo} resizeMode="contain" style={{width:120, height:100}} />
-        <View style={{flexDirection:"row", justifyContent:"space-between", width: 100}} >
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => console.log("Create new basket pressed")}>
+                  <Image 
+                    source={assets.createBasketIcon} 
+                    resizeMode="contain"  
+                    style={styles.buttonIcon}
+                  />
+                  <Text style={styles.buttonText}>Create New Basket</Text>
+        </TouchableOpacity>
+        {/* <View style={{flexDirection:"row", justifyContent:"space-between", width: 100}} >
           <View style={{ width:40, height:40}} >
             <Image 
               source={assets.heartIcon} 
@@ -38,7 +46,7 @@ const HomeHeader = ({onSearch, user}) => {
               <Text style={{color: COLORS.secondary}} >3</Text>
             </View>
           </View>
-        </View>
+        </View> */}
       </View>
 
       <View style={{marginVertical: SIZES.font}} >
@@ -82,5 +90,27 @@ const HomeHeader = ({onSearch, user}) => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
+        marginVertical: 5,
+        borderWidth: `2px solid ${COLORS.secondary}`,
+        borderColor: COLORS.secondary,
+        borderRadius: 5,
+    },
+    buttonIcon: {
+      width: 20,
+      height: 20,
+      marginRight: 10,
+    },
+    buttonText: {
+      color: COLORS.secondary,
+      fontWeight: 'bold'
+    },
+})
 
 export default HomeHeader

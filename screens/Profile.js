@@ -2,11 +2,14 @@ import React from 'react';
 import { SafeAreaView, View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { FocusedStatusBar } from '../components';
 import { assets, COLORS } from '../constants';
+import { useNavigation } from '@react-navigation/native';
 
 const {width, height} = Dimensions.get('window');
 
 const Profile = ({ route }) => {
     const { user } = route.params;
+
+    const navigation = useNavigation()
 
     return (
         <SafeAreaView style={styles.container}>
@@ -47,7 +50,7 @@ const Profile = ({ route }) => {
                   />
                   <Text style={styles.buttonText}>Shopping Baskets</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => console.log("Change Preferences Pressed")}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate("ChangePreferences", {user, navigation})}>
                   <Image 
                     source={assets.changeIcon} 
                     resizeMode="contain"  
@@ -80,9 +83,9 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
     },
     profilePic: {
-        width: width * 0.3,
-        height: width * 0.3,
-        borderRadius: width * 0.15,
+        width: width * 0.4,
+        height: width * 0.4,
+        borderRadius: width * 0.2,
         marginBottom: 20,
     },
     username: {

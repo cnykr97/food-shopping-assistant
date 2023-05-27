@@ -20,6 +20,7 @@ import takePictureIcon from "../assets/icons/take-picture-icon.png";
 import logoutIcon from "../assets/icons/logout.png";
 import logoutIconWhite from "../assets/icons/logout-white.png";
 import changeIcon from "../assets/icons/change.png";
+import createBasketIcon from "../assets/icons/create-basket.png";
 
 import logo from "../assets/images/logo.png"
 
@@ -61,6 +62,7 @@ export default {
     changeIcon,
     logoutIcon,
     logoutIconWhite,
+    createBasketIcon,
     
     logo,
 

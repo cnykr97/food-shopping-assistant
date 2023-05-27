@@ -10,8 +10,8 @@ const userPreferences = {
 const users = [
     {
         id: 0,
-        userName: 'John',
-        email: 'john@example.com',
+        userName: 'Jane Doe',
+        email: 'janedoe@example.com',
         password: '123',
         profilePicture: assets.pp0,
         preferences: {
@@ -23,8 +23,8 @@ const users = [
     },
     {
         id: 1,
-        userName: 'Jane',
-        email: 'jane@example.com',
+        userName: 'John Smith',
+        email: 'johnsmith@example.com',
         password: '123',
         profilePicture: assets.pp1,
         preferences: {

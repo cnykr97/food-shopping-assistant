@@ -8,6 +8,7 @@ import Home from "./screens/Home";
 import TakePhoto from "./screens/TakePhoto";
 import Profile from "./screens/Profile";
 import ProductDetails from "./screens/ProductDetails";
+import ChangePreferences from "./screens/ChangePreferences";
 import { View } from "react-native";
 
 // export NODE_OPTIONS=--openssl-legacy-provider
@@ -39,6 +40,8 @@ const App = () => {
 
   if (!loaded) return null;
 
+  const HiddenTabBarButton = () => <View style={{ width:0, height:0 }} />;
+
   return (
     <NavigationContainer theme={theme}>
 
@@ -68,7 +71,8 @@ const App = () => {
         <Tab.Screen name="Home" component={Home} initialParams={{user: users[1]}} />
         <Tab.Screen name="TakePhoto" component={TakePhoto}/>
         <Tab.Screen name="Profile" component={Profile} initialParams={{user: users[1]}} />
-        <Tab.Screen name="ProductDetails" component={ProductDetails} options={{ tabBarButton: () => <View style={{ width:0, height:0 }} ></View> }} />
+        <Tab.Screen name="ProductDetails" component={ProductDetails} options={{ tabBarButton: HiddenTabBarButton }} />
+        <Tab.Screen name="ChangePreferences" component={ChangePreferences} options={{ tabBarButton: HiddenTabBarButton }} />
       </Tab.Navigator>
 
     </NavigationContainer>
