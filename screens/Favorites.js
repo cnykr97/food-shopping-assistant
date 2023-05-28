@@ -24,7 +24,7 @@ const Favorites = ({route, navigation}) => {
             </View>
             <FlatList
                 data={user.favorites}
-                renderItem= { ({item}) => <ProductCard product={item} /> }
+                renderItem= { ({item}) => <ProductCard product={item} user={user} /> }
                 keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
                 style={{padding: SIZES.extraLarge}}

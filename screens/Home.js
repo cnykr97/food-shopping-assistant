@@ -37,7 +37,7 @@ const Home = ({ route }) => {
         <View>
           <FlatList 
             data={productData}
-            renderItem= { ({item}) => <ProductCard product={item} /> }
+            renderItem= { ({item}) => <ProductCard product={item} user={user} /> }
             keyExtractor={(item) => item.id}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={<HomeHeader onSearch={handleSearch} user={user} />}

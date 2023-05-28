@@ -217,6 +217,7 @@ const users = [
         ],
         baskets: [
             {
+                id: 0,
                 basketName: 'after sports',
                 totalCalories: ProductData[2].content.calories + ProductData[5].content.calories + ProductData[7].content.calories ,
                 items: [
@@ -224,6 +225,7 @@ const users = [
                 ]
             },
             {
+                id: 1,
                 basketName: 'basket2',
                 totalCalories: ProductData[3].content.calories + ProductData[4].content.calories + ProductData[5].content.calories ,
                 items: [
@@ -231,6 +233,7 @@ const users = [
                 ]
             },
             {
+                id:2,
                 basketName: 'basket3',
                 totalCalories: ProductData[1].content.calories + ProductData[6].content.calories + ProductData[8].content.calories ,
                 items: [
@@ -256,13 +259,15 @@ const users = [
         ],
         baskets: [
             {
+                id: 0,
                 basketName: 'after sports',
                 totalCalories: ProductData[2].content.calories + ProductData[5].content.calories + ProductData[7].content.calories ,
                 items: [
                     ProductData[2], ProductData[5], ProductData[7]
                 ]
             },
-            {
+            {   
+                id: 1,
                 basketName: 'basket2',
                 totalCalories: ProductData[3].content.calories + ProductData[4].content.calories + ProductData[5].content.calories ,
                 items: [
@@ -270,6 +275,7 @@ const users = [
                 ]
             },
             {
+                id: 2,
                 basketName: 'basket3',
                 totalCalories: ProductData[1].content.calories + ProductData[6].content.calories + ProductData[8].content.calories ,
                 items: [

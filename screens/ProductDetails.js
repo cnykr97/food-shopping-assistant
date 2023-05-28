@@ -17,7 +17,7 @@ const ContentDisplay = ({product}) => {
 }
 
 const ProductDetails = ({ route, navigation }) => {
-  const { product } = route.params
+  const { product, user } = route.params
 
   return (
     <SafeAreaView style={{ display:"flex", flexDirection:"column" }} >
@@ -27,7 +27,7 @@ const ProductDetails = ({ route, navigation }) => {
           backgroundColor="transparent"
           translucent={true}
         />
-        <ProductCard product={product} />
+        <ProductCard product={product} user={user} />
 
         <CircularButton imgUrl={assets.left} handlePress={navigation.goBack}  top={SIZES.extraLarge} left={SIZES.small} width={50} height={50} />
 

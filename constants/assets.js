@@ -24,6 +24,7 @@ import createBasketIcon from "../assets/icons/create-basket.png";
 import plusWhite from "../assets/icons/plus-white.png";
 import addToFavoritesIcon from "../assets/icons/addToFavoritesIcon.png";
 import removeFromFavoritesIcon from "../assets/icons/removeFromFavoritesIcon.png";
+import addToBasketIcon from "../assets/icons/addToBasketIcon.png";
 
 import logo from "../assets/images/logo.png"
 
@@ -73,6 +74,7 @@ export default {
     plusWhite,
     removeFromFavoritesIcon,
     addToFavoritesIcon,
+    addToBasketIcon,
     
     logo,
 
