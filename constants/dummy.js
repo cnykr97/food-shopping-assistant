@@ -89,7 +89,7 @@ const ProductData = [
         id: 4,
         name: "Ülker Laviva Dolgu Ve Bisküvi Çikolata",
         trained_name: "laviva",
-        weight: "35",
+        weight: "35g",
         image: assets.p4,
         category: "atıştırmalık, çikolata, bar",
         content: {
@@ -110,7 +110,7 @@ const ProductData = [
         id: 5,
         name: "Tadelle Fındık Dolgulu Sütlü Çikolata",
         trained_name: "tadelle",
-        weight: "30",
+        weight: "30g",
         image: assets.p5,
         category: "atıştırmalık, çikolata, sütlü, fındıklı",
         content: {
@@ -131,7 +131,7 @@ const ProductData = [
         id: 6,
         name: "Ruffles Ketçaplı Patates Cips",
         trained_name: "ruffles_ketcap",
-        weight: "107",
+        weight: "107g",
         image: assets.p6,
         category: "atıştırmalık, cips, papates cipsi",
         content: {
@@ -152,7 +152,7 @@ const ProductData = [
         id: 7,
         name: "Ülker Tuzlu Çubuk Kraker",
         trained_name: "ulker_kraker",
-        weight: "40",
+        weight: "40g",
         image: assets.p7,
         category: "atıştırmalık, kraker, tuzlu",
         content: {
@@ -173,7 +173,7 @@ const ProductData = [
         id: 8,
         name: "Dido Trio Beyaz-Sütlü-Bitter Çikolatalı Gofret ",
         trained_name: "dido_trio",
-        weight: "36",
+        weight: "36g",
         image: assets.p8,
         category: "atıştırmalık, çikolatalı gofret",
         content: {

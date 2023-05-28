@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StyleSheet, Dimensions, Image, ScrollView } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, Dimensions, Image } from 'react-native'
 import React from 'react'
 import { CircularButton, FocusedStatusBar, ProductCard } from '../components'
 import { COLORS, SIZES, assets } from '../constants'

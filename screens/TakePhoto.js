@@ -17,12 +17,12 @@ const LoadingScreen = () => {
 }
 
 const TakePhoto = () => {
-  const navigation2 = useNavigation();
-  const cameraRef = useRef();
-  const [type, setType] = useState(CameraType.back);
-  const [photo, setPhoto] = useState();
-  const [isLoading, setIsLoading] = useState(false);
-  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const navigation2 = useNavigation()
+  const cameraRef = useRef()
+  const [type, setType] = useState(CameraType.back)
+  const [photo, setPhoto] = useState()
+  const [isLoading, setIsLoading] = useState(false)
+  const [permission, requestPermission] = Camera.useCameraPermissions()
 
   const takePic = async () => {
     let options = {
@@ -32,13 +32,13 @@ const TakePhoto = () => {
     };
 
     let newPhoto = await cameraRef.current.takePictureAsync(options);
-    setPhoto(newPhoto);
-    setIsLoading(true);
-  };
+    setPhoto(newPhoto)
+    setIsLoading(true)
+  }
 
   const fetchProductData = async () => {
     let data = new FormData();
-    data.append('file', { uri: photo.uri, name: 'photo.png', filename: 'imageName.jpg', type: 'image/jpg' });
+    data.append('file', { uri: photo.uri, name: 'photo.png', filename: 'imageName.jpg', type: 'image/jpg' })
 
     let config = {
       headers: { 
@@ -46,31 +46,31 @@ const TakePhoto = () => {
         'Content-Type': 'multipart/form-data',
         'responseType': 'json'
       }
-    };
+    }
 
     try {
-      const response = await axios.post('http://34.240.229.186/photo', data, config);
-      setIsLoading(false);
+      const response = await axios.post('http://34.240.229.186/photo', data, config)
+      setIsLoading(false)
       for (const product of ProductData) {
         if (product.trained_name === Object.values(response.data)[1]) {
-          navigation2.navigate("ProductDetails", {product, navigation2});
+          navigation2.navigate("ProductDetails", {product, navigation2})
         }
       }
     } catch (err) {
-      setIsLoading(false);
-      alert(err);
+      setIsLoading(false)
+      alert(err)
     }
-  };
+  }
 
   useEffect(() => {
     if (photo) {
-      fetchProductData();
+      fetchProductData()
     }
-  }, [photo]);
+  }, [photo])
 
   if (!permission) {
     // Camera permissions are still loading
-    return <View />;
+    return <View />
   }
 
   if (!permission.granted) {
@@ -80,7 +80,7 @@ const TakePhoto = () => {
         <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
         <Button onPress={requestPermission} title="grant permission" />
       </View>
-    );
+    )
   }
 
   if (isLoading){
@@ -89,10 +89,18 @@ const TakePhoto = () => {
     return (
       <Camera style={styles.container} ref={cameraRef} type={type} >
         <View style={styles.buttonContainer}>
-          <CircularButton imgUrl={assets.takePictureIcon} handlePress={takePic} width={100} height={100} backgroundColor={"transparent"} borderWidth={3} borderColor={COLORS.white} borderRadius={"50%"} />
+          <CircularButton 
+            imgUrl={assets.takePictureIcon} 
+            handlePress={takePic} 
+            width={100} 
+            height={100} 
+            backgroundColor={"transparent"} 
+            borderWidth={3} 
+            borderColor={COLORS.white} 
+            borderRadius={"50%"} />
         </View>
       </Camera>
-    );
+    )
   }
 }
 
@@ -108,6 +116,6 @@ const styles = StyleSheet.create({
     position:"absolute",
     bottom: SIZES.extraLarge*2
   },
-});
+})
 
 export default TakePhoto;
