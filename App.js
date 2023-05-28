@@ -1,4 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer, DefaultTheme, StackActions } from "@react-navigation/native";
 import IonIcons from 'react-native-vector-icons/Ionicons'; 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -12,41 +13,45 @@ import ChangePreferences from "./screens/ChangePreferences";
 import { View } from "react-native";
 import Baskets from "./screens/Baskets";
 import Favorites from "./screens/Favorites";
+import Login from "./screens/Login";
+import SignUp from "./screens/SignUp";
+import { useState } from "react";
 
 // export NODE_OPTIONS=--openssl-legacy-provider
 
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
-
-// screen names
-const homeName = "Home"
-const TakePhotoName = "TakePhoto"
-const ProfileName = "Profile"
-
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: "transparent"
-  }
-}
-
-const App = () => {
-  const [loaded] = useFonts({
-    InterBold: require("./assets/fonts/Inter-Bold.ttf"),
-    InterSemiBold: require("./assets/fonts/Inter-SemiBold.ttf"),
-    InterMedium: require("./assets/fonts/Inter-Medium.ttf"),
-    InterRegular: require("./assets/fonts/Inter-Regular.ttf"),
-    InterLight: require("./assets/fonts/Inter-Light.ttf"),
-  });
-
-  if (!loaded) return null;
-
-  const HiddenTabBarButton = () => <View style={{ width:0, height:0 }} />;
+const LoginContainer = ({setLogged, theme}) => {
+  const Stack = createNativeStackNavigator()
 
   return (
-    <NavigationContainer theme={theme}>
+    <NavigationContainer theme={theme} >
+      <Stack.Navigator
+        initialRouteName="Login"
+        screenOptions={{
+          headerShown: false
+        }}
+      >
+        <Stack.Screen name="Login" > 
+          {props => <Login {...props} setLogged={setLogged} />}
+        </Stack.Screen>
+        <Stack.Screen name="SignUp" > 
+          {props => <SignUp {...props} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
+    
+  )
+}
 
+const Main = ({setLogged, theme}) => {
+  const Tab = createBottomTabNavigator();
+  const HiddenTabBarButton = () => <View style={{ width:0, height:0 }} />
+
+  // screen names
+  const homeName = "Home"
+  const TakePhotoName = "TakePhoto"
+  const ProfileName = "Profile"
+  
+  return <NavigationContainer theme={theme}>
       <Tab.Navigator  
         initialRouteName={homeName}
         screenOptions={({ route }) => ({
@@ -72,7 +77,7 @@ const App = () => {
 
         <Tab.Screen name="Home" component={Home} initialParams={{user: users[1]}} />
         <Tab.Screen name="TakePhoto" component={TakePhoto}/>
-        <Tab.Screen name="Profile" component={Profile} initialParams={{user: users[1]}} />
+        <Tab.Screen name="Profile" component={Profile} initialParams={{user: users[1], setLogged: setLogged}} />
         <Tab.Screen name="ProductDetails" component={ProductDetails} options={{ tabBarButton: HiddenTabBarButton }} />
         <Tab.Screen name="ChangePreferences" component={ChangePreferences} options={{ tabBarButton: HiddenTabBarButton }} />
         <Tab.Screen name="Baskets" component={Baskets} options={{ tabBarButton: HiddenTabBarButton }} />
@@ -80,7 +85,32 @@ const App = () => {
       </Tab.Navigator>
 
     </NavigationContainer>
-  );
+}
+
+const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  const setLogged = () => setIsLoggedIn(!isLoggedIn)
+
+  const [loaded] = useFonts({
+    InterBold: require("./assets/fonts/Inter-Bold.ttf"),
+    InterSemiBold: require("./assets/fonts/Inter-SemiBold.ttf"),
+    InterMedium: require("./assets/fonts/Inter-Medium.ttf"),
+    InterRegular: require("./assets/fonts/Inter-Regular.ttf"),
+    InterLight: require("./assets/fonts/Inter-Light.ttf"),
+  })
+
+  if (!loaded) return null
+
+  const theme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: "transparent"
+    }
+  }
+  
+  return isLoggedIn ? <Main setLogged={setLogged} theme={theme} /> : <LoginContainer setLogged={setLogged} theme={theme} />
 }
 
 export default App;

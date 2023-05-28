@@ -40,6 +40,7 @@ import p8 from "../assets/images/p8.png"
 
 import basketScreenHeaderImage from "../assets/images/basketScreenHeaderImage.png"
 import favoritesScreenHeaderImage from "../assets/images/favoritesScreenHeaderImage.png"
+import welcome from "../assets/images/welcome.png"
 
 
 import pp0 from "../assets/images/pp0.png"
@@ -90,6 +91,7 @@ export default {
 
     basketScreenHeaderImage,
     favoritesScreenHeaderImage,
+    welcome,
 
     pp0,
     pp1

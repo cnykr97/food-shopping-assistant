@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 const {width, height} = Dimensions.get('window');
 
 const Profile = ({ route }) => {
-    const { user } = route.params;
+    const { user, setLogged } = route.params;
 
     const navigation = useNavigation()
 
@@ -23,7 +23,7 @@ const Profile = ({ route }) => {
                 <Image source={user.profilePicture} style={styles.profilePic} />
                 <Text style={styles.username}>{user.userName}</Text>
                 <Text style={styles.email}>{user.email}</Text>
-                <TouchableOpacity style={styles.logoutButton} onPress={() => console.log("Logout Pressed")}>
+                <TouchableOpacity style={styles.logoutButton} onPress={setLogged}>
                   <Image 
                     source={assets.logoutIconWhite} 
                     resizeMode="contain"  
