@@ -3,9 +3,13 @@ import {COLORS, SIZES, SHADOWS, assets, FONTS} from '../constants'
 import { CircularButton } from './Buttons'
 import ProductContentIcons from './ProductContentIcons'
 import { useNavigation } from '@react-navigation/native'
+import { useState } from 'react'
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, user }) => {
   const navigation = useNavigation();
+
+  const [isInFavorites, setIsInFavorites] = useState(false)
+
   return (
     <View style={{ 
         backgroundColor: COLORS.white,
@@ -27,7 +31,14 @@ const ProductCard = ({ product }) => {
                 }}
             />
           </TouchableOpacity>
-          <CircularButton imgUrl={assets.heart} width={40} height={40} right={10} top={10} />
+          <CircularButton 
+            imgUrl={isInFavorites ? assets.removeFromFavoritesIcon : assets.addToFavoritesIcon} 
+            width={50} 
+            height={50} 
+            right={10} 
+            top={10}
+            handlePress= {() => setIsInFavorites(!isInFavorites)}
+            />
           <ProductContentIcons product={product} />
         </View>
 

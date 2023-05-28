@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 0,
         bottom: 0,
-        fontSize: 28,
+        fontSize: SIZES.extraLarge*1.4,
         fontWeight: "bold",
         margin: 10,
         color: COLORS.white

@@ -14,9 +14,9 @@ const ProductContentIcons = ({product}) => {
         alignItems:"center",
         paddingLeft: SIZES.small
     }} >
-      { product.isGlutenFree ? <Image source={assets.glutenFreeIcon} style={{width: 60, height: 60, marginBottom:-10 }} /> : null}
-      { product.isLactoseFree ? <Image source={assets.lactoseFreeIcon} style={{width: 60, height: 60}}/> : null}
-      { product.isVegan ? <Image source={assets.veganIcon} style={{width: 50, height: 50}}/> : null}
+      { product.isGlutenFree ? <Image source={assets.glutenFreeIcon} style={{width: 60, height: 60, marginBottom:-10, borderRadius: '50%' }} /> : null}
+      { product.isLactoseFree ? <Image source={assets.lactoseFreeIcon} style={{width: 60, height: 60, borderRadius: '50%'}}/> : null}
+      { product.isVegan ? <Image source={assets.veganIcon} style={{width: 50, height: 50, borderRadius: '50%'}}/> : null}
     </View>
   )
 }

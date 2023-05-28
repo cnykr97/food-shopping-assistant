@@ -213,7 +213,7 @@ const users = [
             isVegan: false
         },
         favorites: [
-            ProductData[3], ProductData[4], ProductData[5]
+            ProductData[6], ProductData[4], ProductData[5]
         ],
         baskets: [
             {
@@ -252,7 +252,7 @@ const users = [
             isVegan: true 
         },
         favorites: [
-            ProductData[3], ProductData[4], ProductData[5]
+            ProductData[6], ProductData[7], ProductData[8]
         ],
         baskets: [
             {
