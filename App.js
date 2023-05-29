@@ -55,7 +55,7 @@ const Main = ({setLogged, theme}) => {
   
   return <NavigationContainer theme={theme}>
       <Tab.Navigator  
-        initialRouteName={"ProductNotFound"}
+        initialRouteName={"homeName"}
         screenOptions={({ route }) => ({
           headerShown: false,
           activeTintColor: COLORS.secondary,
@@ -92,7 +92,7 @@ const Main = ({setLogged, theme}) => {
 }
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const setLogged = () => setIsLoggedIn(!isLoggedIn)
 
