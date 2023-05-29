@@ -15,38 +15,12 @@ const HomeHeader = ({onSearch, user}) => {
         <Image source={assets.logo} resizeMode="contain" style={{width:120, height:100}} />
         <TouchableOpacity style={styles.buttonContainer} onPress={() => console.log("Create new basket pressed")}>
                   <Image 
-                    source={assets.createBasketIcon} 
+                    source={assets.startShoppingIcon} 
                     resizeMode="contain"  
                     style={styles.buttonIcon}
                   />
-                  <Text style={styles.buttonText}>Create New Basket</Text>
+                  <Text style={styles.buttonText}>Start Shopping!</Text>
         </TouchableOpacity>
-        {/* <View style={{flexDirection:"row", justifyContent:"space-between", width: 100}} >
-          <View style={{ width:40, height:40}} >
-            <Image 
-              source={assets.heartIcon} 
-              resizeMode="contain"  
-              style={{ width:"100%", height:"100%", borderRadius:"50%" }}
-            />
-            <View style={{
-              width:18, height: 18, borderRadius:"50%", position: "absolute", top:0, right:0, backgroundColor: COLORS.white, borderWidth:1, borderColor: COLORS.secondary, display:"flex", justifyContent:"center", alignItems:"center", fontFamily: FONTS.semiBold
-            }}>
-              <Text style={{color: COLORS.secondary}} >2</Text>
-            </View>
-          </View>
-          <View style={{ width:35, height:35}} >
-            <Image 
-              source={assets.basketIcon} 
-              resizeMode="contain"  
-              style={{ width:"100%", height:"100%", borderRadius:"50%" }}
-              />
-              <View style={{
-              width:18, height: 18, borderRadius:"50%", position: "absolute", top:0, right:0, backgroundColor: COLORS.white, borderWidth:1, borderColor: COLORS.secondary, display:"flex", justifyContent:"center", alignItems:"center", fontFamily: FONTS.semiBold
-            }}>
-              <Text style={{color: COLORS.secondary}} >3</Text>
-            </View>
-          </View>
-        </View> */}
       </View>
 
       <View style={{marginVertical: SIZES.font}} >

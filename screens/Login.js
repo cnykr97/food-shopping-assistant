@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
         borderRadius: SIZES.base,
         padding: SIZES.medium,
-        margin: SIZES.base,
+        marginTop: SIZES.large,
         width: '50%'
     },
     buttonText: {
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     link: {
         color: COLORS.white,
         fontWeight: 'bold',
-        marginTop: SIZES.base
+        marginTop: SIZES.large,
     },
     copyright: {
         color: COLORS.white,

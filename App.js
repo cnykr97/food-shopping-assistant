@@ -34,7 +34,7 @@ const LoginContainer = ({setLogged, theme}) => {
           {props => <Login {...props} setLogged={setLogged} />}
         </Stack.Screen>
         <Stack.Screen name="SignUp" > 
-          {props => <SignUp {...props} />}
+          {props => <SignUp {...props} setLogged={setLogged} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
