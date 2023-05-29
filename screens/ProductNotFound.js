@@ -29,7 +29,7 @@ const ProductNotFound = ({route, navigation}) => {
                 behavior={Platform.OS === 'ios' ? 'padding' : null}
                 keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
              >
-                <Text style={styles.feedbackText} >If you want to help us to improve our system, send the name of the product you want to scan, so we can add in our system!</Text>
+                <Text style={styles.feedbackText} >If you want to help us to improve our system, send the name of the product you wanted to scan, so we can add it in our system!</Text>
                 <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}} >
                     <TextInput 
                     style={styles.inputText} 
@@ -47,7 +47,7 @@ const ProductNotFound = ({route, navigation}) => {
                     textStyle={{ color: COLORS.white, textDecorationLine: "none", }}
                     onPress={() => setisSelected(!isSelected)}
                 />
-                <Text style={{color: COLORS.white}} > {"(By giving permission to share photo, you are sharing the photo you just scanned with us. We are not responsible for privacy problems.) "} </Text>
+                <Text style={{color: COLORS.white, fontSize: SIZES.small, marginTop: SIZES.base}} > {"*By giving permission to share photo, you are sharing the photo you just scanned with us. We are not responsible for privacy concerns. "} </Text>
                 
             </KeyboardAvoidingView>
             <TouchableOpacity 
