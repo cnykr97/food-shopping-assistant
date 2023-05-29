@@ -18,7 +18,7 @@ const BasketDetails = ({route, navigation}) => {
         return items.map((product, index) => {
             return (
                 <TouchableOpacity style={styles.itemRow} key={index} onPress={() => {navigation.navigate("ProductDetails", {product, user, navigation})}} >
-                    <Image source={product.image} style={{width: 75, height: 75}} />
+                    <Image source={product.image} style={{width: 75, height: 75, borderRadius:SIZES.base}} />
                     <Text> {product.name} </Text>
                     <TouchableOpacity onPress={() => handleRemove(product)} >
                         <Image source={assets.removeIcon} />

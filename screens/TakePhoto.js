@@ -6,6 +6,7 @@ import { assets, COLORS, FONTS, SIZES } from '../constants';
 import axios from 'axios';
 import { ProductData } from '../constants';
 import { useNavigation } from '@react-navigation/native';
+import ProductNotFound from './ProductNotFound';
 
 const LoadingScreen = () => {
   return (
@@ -53,12 +54,13 @@ const TakePhoto = () => {
       setIsLoading(false)
       for (const product of ProductData) {
         if (product.trained_name === Object.values(response.data)[1]) {
-          navigation2.navigate("ProductDetails", {product, navigation2})
+          navigation2.navigate("ProductDetails", {product,user})
         }
       }
     } catch (err) {
       setIsLoading(false)
       alert(err)
+      navigation2.navigate("ProductNotFound", {user, photo})
     }
   }
 

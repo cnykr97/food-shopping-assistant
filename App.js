@@ -16,6 +16,7 @@ import Favorites from "./screens/Favorites";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
 import BasketDetails from "./screens/BasketDetails";
+import ProductNotFound from "./screens/ProductNotFound";
 import { useState } from "react";
 
 // export NODE_OPTIONS=--openssl-legacy-provider
@@ -54,7 +55,7 @@ const Main = ({setLogged, theme}) => {
   
   return <NavigationContainer theme={theme}>
       <Tab.Navigator  
-        initialRouteName={homeName}
+        initialRouteName={"ProductNotFound"}
         screenOptions={({ route }) => ({
           headerShown: false,
           activeTintColor: COLORS.secondary,
@@ -84,13 +85,14 @@ const Main = ({setLogged, theme}) => {
         <Tab.Screen name="Baskets" component={Baskets} options={{ tabBarButton: HiddenTabBarButton }} />
         <Tab.Screen name="Favorites" component={Favorites} options={{ tabBarButton: HiddenTabBarButton }} />
         <Tab.Screen name="BasketDetails" component={BasketDetails} options={{ tabBarButton: HiddenTabBarButton }} />
+        <Tab.Screen name="ProductNotFound" component={ProductNotFound} options={{ tabBarButton: HiddenTabBarButton }} initialParams={{user: users[1]}} />
       </Tab.Navigator>
 
     </NavigationContainer>
 }
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
 
   const setLogged = () => setIsLoggedIn(!isLoggedIn)
 
