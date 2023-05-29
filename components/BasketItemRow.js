@@ -1,13 +1,14 @@
-import { View, Text, SafeAreaView, StyleSheet, Image } from 'react-native'
+import { Text, StyleSheet } from 'react-native'
 import React from 'react'
 import { COLORS, SIZES } from '../constants'
 import { TouchableOpacity } from 'react-native'
 
-const BasketItemRow = ({item, navigation}) => {
+const BasketItemRow = ({basket, user, navigation}) => {
+
   return (
-    <TouchableOpacity style={styles.container} >
-        <Text style={styles.basketName} > {item.basketName} </Text>
-        <Text> Total Calories: {item.totalCalories} </Text>
+    <TouchableOpacity style={styles.container} onPress={() => {navigation.navigate("BasketDetails",{basket, user})}} >
+        <Text style={styles.basketName} > {basket.basketName} </Text>
+        <Text> Total Calories: {basket.totalCalories} </Text>
     </TouchableOpacity>
   )
 }

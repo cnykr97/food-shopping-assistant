@@ -34,6 +34,7 @@ const SignUp = ({setLogged, navigation}) => {
                 behavior={Platform.OS === 'ios' ? 'padding' : null}
                 keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
             >
+                <Text style={styles.title} >Sign Up</Text>
                 <TextInput
                     style={styles.inputField}
                     onChangeText={setEmail}
@@ -58,7 +59,7 @@ const SignUp = ({setLogged, navigation}) => {
                     <Switch 
                         value={isGlutenFree} 
                         onValueChange={() => setIsGlutenFree(!isGlutenFree)}
-                        trackColor={{false: '#767577', true: COLORS.secondary}}
+                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
                         />
                 </View>
 
@@ -67,7 +68,7 @@ const SignUp = ({setLogged, navigation}) => {
                     <Switch 
                         value={isCeliacFree} 
                         onValueChange={() => setIsCeliacFree(!isCeliacFree)} 
-                        trackColor={{false: '#767577', true: COLORS.secondary}}
+                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
                         />
                 </View>
 
@@ -76,7 +77,7 @@ const SignUp = ({setLogged, navigation}) => {
                     <Switch 
                         value={isLactoseFree} 
                         onValueChange={() => setIsLactoseFree(!isLactoseFree)} 
-                        trackColor={{false: '#767577', true: COLORS.secondary}}
+                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
                         />
                 </View>
 
@@ -85,7 +86,7 @@ const SignUp = ({setLogged, navigation}) => {
                     <Switch 
                         value={isVegan} 
                         onValueChange={() => setIsVegan(!isVegan)} 
-                        trackColor={{false: '#767577', true: COLORS.secondary}}
+                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
                         />
                 </View>
                 <View style={{alignItems: 'center'}} >
@@ -115,6 +116,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: COLORS.secondary,
+    },
+    title: {
+        color: COLORS.white,
+        fontSize: SIZES.large,
+        textAlign: 'center',
+        margin: SIZES.base
     },
     preferencesSection: {
         flex: 2,

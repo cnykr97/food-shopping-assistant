@@ -19,7 +19,8 @@ const Baskets = ({route, navigation}) => {
         return (
             <BasketItemRow
                 key={index}
-                item={basket}
+                basket={basket}
+                user={user}
                 navigation={navigation}
             />
         )
@@ -96,13 +97,13 @@ const styles = StyleSheet.create({
         flex: 1
     },
     header: {
-        flex: 1,
+        flex: 0.75,
         justifyContent:'center',
         alignItems: 'center',
         backgroundColor: COLORS.secondary
     },
     content: {
-        flex: 1.5,
+        flex: 2,
         flexDirection: 'column',
         paddingVertical: SIZES.base,
     },

@@ -15,6 +15,7 @@ import Baskets from "./screens/Baskets";
 import Favorites from "./screens/Favorites";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
+import BasketDetails from "./screens/BasketDetails";
 import { useState } from "react";
 
 // export NODE_OPTIONS=--openssl-legacy-provider
@@ -82,6 +83,7 @@ const Main = ({setLogged, theme}) => {
         <Tab.Screen name="ChangePreferences" component={ChangePreferences} options={{ tabBarButton: HiddenTabBarButton }} />
         <Tab.Screen name="Baskets" component={Baskets} options={{ tabBarButton: HiddenTabBarButton }} />
         <Tab.Screen name="Favorites" component={Favorites} options={{ tabBarButton: HiddenTabBarButton }} />
+        <Tab.Screen name="BasketDetails" component={BasketDetails} options={{ tabBarButton: HiddenTabBarButton }} />
       </Tab.Navigator>
 
     </NavigationContainer>

@@ -26,6 +26,7 @@ import addToFavoritesIcon from "../assets/icons/addToFavoritesIcon.png";
 import removeFromFavoritesIcon from "../assets/icons/removeFromFavoritesIcon.png";
 import addToBasketIcon from "../assets/icons/addToBasketIcon.png";
 import startShoppingIcon from "../assets/icons/startShoppingIcon.png";
+import removeIcon from "../assets/icons/removeIcon.png";
 
 
 import logo from "../assets/images/logo.png"
@@ -79,6 +80,7 @@ export default {
     addToFavoritesIcon,
     addToBasketIcon,
     startShoppingIcon,
+    removeIcon,
     
     logo,
 

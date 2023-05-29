@@ -36,7 +36,7 @@ const ChangePreferences = ({ route, navigation }) => {
                 <Switch 
                     value={isGlutenFree} 
                     onValueChange={() => setIsGlutenFree(!isGlutenFree)}
-                    trackColor={{false: '#767577', true: COLORS.secondary}}
+                    trackColor={{false: COLORS.primary, true: COLORS.secondary}}
                     />
             </View>
 
@@ -45,7 +45,7 @@ const ChangePreferences = ({ route, navigation }) => {
                 <Switch 
                     value={isCeliacFree} 
                     onValueChange={() => setIsCeliacFree(!isCeliacFree)} 
-                    trackColor={{false: '#767577', true: COLORS.secondary}}
+                    trackColor={{false: COLORS.primary, true: COLORS.secondary}}
                     />
             </View>
 
@@ -54,7 +54,7 @@ const ChangePreferences = ({ route, navigation }) => {
                 <Switch 
                     value={isLactoseFree} 
                     onValueChange={() => setIsLactoseFree(!isLactoseFree)} 
-                    trackColor={{false: '#767577', true: COLORS.secondary}}
+                    trackColor={{false: COLORS.primary, true: COLORS.secondary}}
                     />
             </View>
 
@@ -63,7 +63,7 @@ const ChangePreferences = ({ route, navigation }) => {
                 <Switch 
                     value={isVegan} 
                     onValueChange={() => setIsVegan(!isVegan)} 
-                    trackColor={{false: '#767577', true: COLORS.secondary}}
+                    trackColor={{false: COLORS.primary, true: COLORS.secondary}}
                     />
             </View>
 

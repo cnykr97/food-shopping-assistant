@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
         borderRadius: SIZES.base,
         padding: SIZES.medium,
-        marginTop: SIZES.large,
+        marginTop: SIZES.extraLarge*1.5,
         width: '50%'
     },
     buttonText: {
