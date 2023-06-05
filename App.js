@@ -94,7 +94,7 @@ const Main = ({setLogged, theme}) => {
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  const setLogged = () => setIsLoggedIn(!isLoggedIn)
+  const setLogged = () => setIsLoggedIn((prev) => !prev)
 
   const [loaded] = useFonts({
     InterBold: require("./assets/fonts/Inter-Bold.ttf"),

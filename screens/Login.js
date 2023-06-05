@@ -2,16 +2,92 @@ import { View, Text, SafeAreaView, StyleSheet, Image, Dimensions, TextInput, Tou
 import React, { useState } from 'react'
 import { FocusedStatusBar } from '../components'
 import { COLORS, SIZES, assets } from '../constants'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({setLogged, navigation}) => {
     const { width, height } = Dimensions.get("window")
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    
+    const [required, setrequired] = useState(false)
+    const [wrongInput, setWrongInput] = useState(false)
+
+
+    const RequiredFieldsMessage = () => {
+        setWrongInput(false)
+        return <Text style={{color: "red"}} > both e-mail and password are required! </Text>
+    }
+
+    const WrongInputMessage = () => {
+        setrequired(false)
+        return <Text style={{color: "red"}} > e-mail or password is wrong! </Text>
+    }
+    
+    const storeToken = async (token) => {
+        try {
+            await AsyncStorage.setItem('@token', token);
+        } catch (e) {
+            // Saving error
+            console.error(e);
+        }
+    }
+
+    // // Fetch the token
+    // const getToken = async () => {
+    //     try {
+    //         const value = await AsyncStorage.getItem('@token')
+    //         if(value !== null) {
+    //         return value;
+    //         }
+    //     } catch(e) {
+    //         // Read error
+    //         console.error(e);
+    //     }
+    // }
 
     const handleSubmit = () => {
-        setLogged()
-    }
+        if (!email || !password) {
+            setrequired(true)
+            return;
+        }
+        const details = {
+        'username': email,
+        'password': password,
+        };
+        let formBody = [];
+        for (let property in details) {
+            let encodedKey = encodeURIComponent(property);
+            let encodedValue = encodeURIComponent(details[property]);
+            formBody.push(encodedKey + "=" + encodedValue);
+        }
+        formBody = formBody.join("&");
+        fetch('http://52.206.14.6:8000/docs/login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formBody,
+        })
+        .then((response) => response.json())
+        .then((json) => {
+            if (json.access_token && json.token_type) {
+                storeToken(json)
+                setLogged()
+            } else {
+            // Handle login error
+            // The server could respond with a 422 status code if validation fails
+            // Here you can handle that case
+            setWrongInput(true)
+            console.log('Login error!', json);
+            }
+        })
+        .catch((error) => {
+            // Handle network error
+            console.error('Network error!', error);
+        });
+    };
+
 
     return (
     <SafeAreaView style={styles.container} >
@@ -29,6 +105,8 @@ const Login = ({setLogged, navigation}) => {
             keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
         >
             <Image source={assets.welcome} style={{width: width*0.6, height: height*0.15, marginBottom: SIZES.extraLarge*2}} />
+            { required && <RequiredFieldsMessage/> }
+            { wrongInput && <WrongInputMessage/> }
             <TextInput
                 style={styles.inputField}
                 onChangeText={setEmail}

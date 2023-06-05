@@ -15,8 +15,51 @@ const SignUp = ({setLogged, navigation}) => {
     const [isVegan, setIsVegan] = useState(false);
 
     const handleSubmit = () => {
-        setLogged()
-    }
+        const dietPreferences = [];
+
+        if (isGlutenFree) {
+            dietPreferences.push({ name: "GlutenFree", cant_consume: [{ name: "Gluten" }] });
+        }
+
+        if (isCeliacFree) {
+            dietPreferences.push({ name: "Celiac", cant_consume: [{ name: "Gluten" }] });
+        }
+
+        if (isLactoseFree) {
+            dietPreferences.push({ name: "LactoseFree", cant_consume: [{ name: "Lactose" }] });
+        }
+
+        if (isVegan) {
+            dietPreferences.push({ name: "Vegan", cant_consume: [{ name: "AnimalProducts" }] });
+        }
+
+        fetch('http://52.206.14.6:8000/docs/users/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: "User's Name",
+                surname: "User's Surname",
+                email: email,
+                password: password,
+                diet: dietPreferences,
+            })
+        })
+        .then((response) => response.json())
+        .then((json) => {
+            if (json.success) { 
+                setLogged()
+            } else {
+                // Handle sign up error
+                console.log('Sign Up error!', json);
+            }
+        })
+        .catch((error) => {
+            // Handle network error
+            console.error('Network error!', error);
+        });
+    };
 
     return (
         <SafeAreaView style={styles.container} >
