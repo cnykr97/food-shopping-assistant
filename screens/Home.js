@@ -1,16 +1,20 @@
-import { View, Text } from 'react-native'
-import React, {useState} from 'react'
+import { View, Text, ScrollView } from 'react-native'
+import React, {useEffect, useState} from 'react'
 import { COLORS, ProductData } from '../constants'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { FlatList } from 'react-native-gesture-handler'
 import {ProductCard, HomeHeader, FocusedStatusBar} from '../components'
-
+import useToken from '../hooks/useToken'
 
 const Home = ({ route }) => {
+
+  const {storeToken, fetchToken} = useToken()
 
   const { user } = route.params
 
   const [productData, setProductData] = useState(ProductData)
+
+  const [recommendeds, setRecommendeds] = useState([])
 
   const handleSearch = (textValue) => {
     if(!textValue) {
@@ -26,6 +30,20 @@ const Home = ({ route }) => {
     }
   }
 
+  useEffect(() => {
+    fetchToken().then((token) => {
+      fetch("http://52.206.14.6:8000/product/recommended", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token,
+        },
+      })
+      .then(response => response.json())
+      .then(data => setRecommendeds(data))
+    });
+  }, []);
+
   return (
     <SafeAreaView>
       <FocusedStatusBar 
@@ -35,13 +53,18 @@ const Home = ({ route }) => {
       />
       <View>
         <View>
-          <FlatList 
-            data={productData}
+          <HomeHeader onSearch={handleSearch} user={user} />
+          <ScrollView showsVerticalScrollIndicator={false} >
+            {!!recommendeds.length && recommendeds.map((item) => <ProductCard product={item} user={user} key={item.id} />) }
+          </ScrollView>
+          
+          {/* { recommendeds.length && <FlatList 
+            data={recommendeds}
             renderItem= { ({item}) => <ProductCard product={item} user={user} /> }
             keyExtractor={(item) => item.id}
             showsVerticalScrollIndicator={false}
-            ListHeaderComponent={<HomeHeader onSearch={handleSearch} user={user} />}
-          />
+            //ListHeaderComponent={<HomeHeader onSearch={handleSearch} user={user} />}
+          />} */}
         </View>
 
         <View style={{

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { FocusedStatusBar } from '../components'
 import { COLORS, SIZES, assets } from '../constants'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import useToken from '../hooks/useToken';
 
 const Login = ({setLogged, navigation}) => {
     const { width, height } = Dimensions.get("window")
@@ -24,27 +25,7 @@ const Login = ({setLogged, navigation}) => {
         return <Text style={{color: "red"}} > e-mail or password is wrong! </Text>
     }
     
-    const storeToken = async (token) => {
-        try {
-            await AsyncStorage.setItem('@token', token.toString());
-        } catch (e) {
-            // Saving error
-            console.error(e);
-        }
-    }
-
-    // // Fetch the token
-    // const getToken = async () => {
-    //     try {
-    //         const value = await AsyncStorage.getItem('@token')
-    //         if(value !== null) {
-    //         return value;
-    //         }
-    //     } catch(e) {
-    //         // Read error
-    //         console.error(e);
-    //     }
-    // }
+    const {storeToken} = useToken()
 
     const handleSignIn = () => {
         if (!email || !password) {
