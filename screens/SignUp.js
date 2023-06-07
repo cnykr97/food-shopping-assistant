@@ -3,8 +3,16 @@ import React, { useState } from 'react'
 import { CircularButton, FocusedStatusBar } from '../components'
 import { COLORS, SIZES, assets } from '../constants'
 
-const SignUp = ({setLogged, navigation}) => {
+const SignUp = ({route, navigation}) => {
     const { width, height } = Dimensions.get("window")
+
+    const {handleLogin} = route.params
+
+    const [required, setrequired] = useState(false)
+
+    const RequiredFieldsMessage = () => {
+        return <Text style={{color: "red"}} > both e-mail and password are required! </Text>
+    }
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -14,26 +22,31 @@ const SignUp = ({setLogged, navigation}) => {
     const [isLactoseFree, setIsLactoseFree] = useState(false);
     const [isVegan, setIsVegan] = useState(false);
 
-    const handleSubmit = () => {
+    const handleSignUp = () => {
+        if (!email || !password) {
+            setrequired(true)
+            return;
+        }
+
         const dietPreferences = [];
 
         if (isGlutenFree) {
-            dietPreferences.push({ name: "GlutenFree", cant_consume: [{ name: "Gluten" }] });
+            dietPreferences.push(JSON.stringify({ name: "GlutenFree", cant_consume: [{ name: "Gluten" }] }));
         }
 
         if (isCeliacFree) {
-            dietPreferences.push({ name: "Celiac", cant_consume: [{ name: "Gluten" }] });
+            dietPreferences.push(JSON.stringify({ name: "Celiac", cant_consume: [{ name: "Gluten" }] }));
         }
 
         if (isLactoseFree) {
-            dietPreferences.push({ name: "LactoseFree", cant_consume: [{ name: "Lactose" }] });
+            dietPreferences.push(JSON.stringify({ name: "LactoseFree", cant_consume: [{ name: "Lactose" }] }));
         }
 
         if (isVegan) {
-            dietPreferences.push({ name: "Vegan", cant_consume: [{ name: "AnimalProducts" }] });
+            dietPreferences.push(JSON.stringify({ name: "Vegan", cant_consume: [{ name: "AnimalProducts" }] }));
         }
 
-        fetch('http://52.206.14.6:8000/docs/users/', {
+        fetch('http://52.206.14.6:8000/users/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -43,20 +56,14 @@ const SignUp = ({setLogged, navigation}) => {
                 surname: "User's Surname",
                 email: email,
                 password: password,
-                diet: dietPreferences,
+                diet: [],
             })
         })
         .then((response) => response.json())
         .then((json) => {
-            if (json.success) { 
-                setLogged()
-            } else {
-                // Handle sign up error
-                console.log('Sign Up error!', json);
-            }
+            handleLogin(json["email"], json["password"])
         })
         .catch((error) => {
-            // Handle network error
             console.error('Network error!', error);
         });
     };
@@ -78,6 +85,7 @@ const SignUp = ({setLogged, navigation}) => {
                 keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
             >
                 <Text style={styles.title} >Sign Up</Text>
+                { required && <RequiredFieldsMessage/> }
                 <TextInput
                     style={styles.inputField}
                     onChangeText={setEmail}
@@ -133,7 +141,7 @@ const SignUp = ({setLogged, navigation}) => {
                         />
                 </View>
                 <View style={{alignItems: 'center'}} >
-                    <TouchableOpacity style={styles.button} onPress={handleSubmit} >
+                    <TouchableOpacity style={styles.button} onPress={handleSignUp} >
                         <Text style={styles.buttonText} > Sign Up </Text>
                     </TouchableOpacity>
                 </View>

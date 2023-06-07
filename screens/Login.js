@@ -46,11 +46,16 @@ const Login = ({setLogged, navigation}) => {
     //     }
     // }
 
-    const handleSubmit = () => {
+    const handleSignIn = () => {
         if (!email || !password) {
             setrequired(true)
             return;
         }
+        handleLogin(email, password)
+    }
+
+    const handleLogin = (email, password) => {
+        
         const details = {
         'username': email,
         'password': password,
@@ -62,7 +67,7 @@ const Login = ({setLogged, navigation}) => {
             formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
-        fetch('http://52.206.14.6:8000/docs/login/', {
+        fetch('http://52.206.14.6:8000/login/token', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -71,19 +76,16 @@ const Login = ({setLogged, navigation}) => {
         })
         .then((response) => response.json())
         .then((json) => {
-            if (json.access_token && json.token_type) {
+            if (json) {
                 storeToken(json)
                 setLogged()
             } else {
-            // Handle login error
-            // The server could respond with a 422 status code if validation fails
-            // Here you can handle that case
             setWrongInput(true)
+            //validation error
             console.log('Login error!', json);
             }
         })
         .catch((error) => {
-            // Handle network error
             console.error('Network error!', error);
         });
     };
@@ -128,10 +130,10 @@ const Login = ({setLogged, navigation}) => {
                     <Text style={{color: COLORS.white}} > Forgot Your Password? </Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.button} onPress={handleSubmit} >
+            <TouchableOpacity style={styles.button} onPress={handleSignIn} >
                 <Text style={styles.buttonText} > Sign In </Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('SignUp')} >
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp', {handleLogin})} >
                 <Text style={styles.link} > Don't you have an account? Sign Up → </Text>
             </TouchableOpacity>
             <Text style={styles.copyright} >© by Wdaw, 2023, All Rights Reserved</Text>
