@@ -26,7 +26,7 @@ const Login = ({setLogged, navigation}) => {
     
     const storeToken = async (token) => {
         try {
-            await AsyncStorage.setItem('@token', token);
+            await AsyncStorage.setItem('@token', token.toString());
         } catch (e) {
             // Saving error
             console.error(e);
@@ -76,8 +76,8 @@ const Login = ({setLogged, navigation}) => {
         })
         .then((response) => response.json())
         .then((json) => {
-            if (json) {
-                storeToken(json)
+            if (json && json.access_token) {
+                storeToken(json.access_token)
                 setLogged()
             } else {
             setWrongInput(true)

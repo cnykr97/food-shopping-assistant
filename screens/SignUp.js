@@ -8,10 +8,15 @@ const SignUp = ({route, navigation}) => {
 
     const {handleLogin} = route.params
 
-    const [required, setrequired] = useState(false)
+    const [required, setRequired] = useState(false)
+    const [emailAlreadyTaken, setEmailAlreadyTaken] = useState(false)
 
     const RequiredFieldsMessage = () => {
         return <Text style={{color: "red"}} > both e-mail and password are required! </Text>
+    }
+
+    const EmailAlreadyTakenMessage = () => {
+        return <Text style={{color: "red"}} > this e-mail is already been using! </Text>
     }
 
     const [email, setEmail] = useState("");
@@ -24,7 +29,8 @@ const SignUp = ({route, navigation}) => {
 
     const handleSignUp = () => {
         if (!email || !password) {
-            setrequired(true)
+            setEmailAlreadyTaken(false)
+            setRequired(true)
             return;
         }
 
@@ -61,7 +67,11 @@ const SignUp = ({route, navigation}) => {
         })
         .then((response) => response.json())
         .then((json) => {
-            handleLogin(json["email"], json["password"])
+            if (json["detail"] !== "Email already taken") {
+                handleLogin(email, password)
+            }
+            setRequired(false)
+            setEmailAlreadyTaken(true)
         })
         .catch((error) => {
             console.error('Network error!', error);
@@ -86,6 +96,7 @@ const SignUp = ({route, navigation}) => {
             >
                 <Text style={styles.title} >Sign Up</Text>
                 { required && <RequiredFieldsMessage/> }
+                { emailAlreadyTaken && <EmailAlreadyTakenMessage/> }
                 <TextInput
                     style={styles.inputField}
                     onChangeText={setEmail}
