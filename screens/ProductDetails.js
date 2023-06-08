@@ -12,7 +12,7 @@ const ContentDisplay = ({product}) => {
   const keys = Object.keys(content)
 
   return keys.map( (key) => {
-    return <ContentRow imgUrl={assets[`${key}Icon`]} name={key} value={content[key]} />
+    return <ContentRow imgUrl={assets[`${key}Icon`]} name={key} value={content[key]} key={key.id} />
   })
 }
 
@@ -42,7 +42,9 @@ const ProductDetails = ({ route, navigation }) => {
               {"100g/ml"}
             </Text>
           </View>
-          <ContentDisplay product={product} />
+          <ScrollView>
+            <ContentDisplay product={product} />
+          </ScrollView>
         </View>
       </ScrollView>
     </SafeAreaView>

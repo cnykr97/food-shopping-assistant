@@ -2,8 +2,8 @@ import { View, Text, SafeAreaView, StyleSheet, Image, Dimensions, TextInput, Tou
 import React, { useState } from 'react'
 import { FocusedStatusBar } from '../components'
 import { COLORS, SIZES, assets } from '../constants'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import useToken from '../hooks/useToken';
+import { BASE_URL } from '@env'
 
 const Login = ({setLogged, navigation}) => {
     const { width, height } = Dimensions.get("window")
@@ -48,7 +48,7 @@ const Login = ({setLogged, navigation}) => {
             formBody.push(encodedKey + "=" + encodedValue);
         }
         formBody = formBody.join("&");
-        fetch('http://52.206.14.6:8000/login/token', {
+        fetch(`${BASE_URL}/login/token`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'

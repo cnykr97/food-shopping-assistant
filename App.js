@@ -92,7 +92,7 @@ const Main = ({setLogged, theme}) => {
 }
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const setLogged = () => setIsLoggedIn(prev => !prev)
 

@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { FlatList } from 'react-native-gesture-handler'
 import {ProductCard, HomeHeader, FocusedStatusBar} from '../components'
 import useToken from '../hooks/useToken'
+import { BASE_URL } from '@env'
 
 const Home = ({ route }) => {
 
@@ -32,7 +33,7 @@ const Home = ({ route }) => {
 
   useEffect(() => {
     fetchToken().then((token) => {
-      fetch("http://52.206.14.6:8000/product/recommended", {
+      fetch(`${BASE_URL}/product/recommended`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
