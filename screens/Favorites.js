@@ -33,7 +33,7 @@ const Favorites = ({route, navigation}) => {
             .then(data => setFavorites(data))
             .catch(error => console.log(error))
         }) 
-    }, [])
+    }, [favorites])
 
     return (
         <SafeAreaView style={styles.container} >

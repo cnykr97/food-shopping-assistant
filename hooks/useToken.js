@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { BASE_URL } from '@env' 
 
 export default function useToken() {
   const storeToken = async (token) => {
@@ -20,7 +20,20 @@ export default function useToken() {
     }
   }
 
-  return {storeToken, fetchToken}
+  const fetchUser = async () => {
+    const user = await fetchToken().then((token) => {
+      fetch(`${BASE_URL}/users/current`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        }
+      })
+    })
+    return user
+  }
+
+  return {storeToken, fetchToken, fetchUser}
 }
 
 

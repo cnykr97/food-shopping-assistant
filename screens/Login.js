@@ -5,7 +5,7 @@ import { COLORS, SIZES, assets } from '../constants'
 import useToken from '../hooks/useToken';
 import { BASE_URL } from '@env'
 
-const Login = ({setLogged, navigation}) => {
+const Login = ({login, navigation}) => {
     const { width, height } = Dimensions.get("window")
 
     const [email, setEmail] = useState("");
@@ -59,7 +59,7 @@ const Login = ({setLogged, navigation}) => {
         .then((json) => {
             if (json && json.access_token) {
                 storeToken(json.access_token)
-                setLogged()
+                login(json.access_token)
             } else {
             setWrongInput(true)
             //validation error

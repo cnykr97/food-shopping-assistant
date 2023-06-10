@@ -3,7 +3,7 @@ import {COLORS, SIZES, SHADOWS, assets, FONTS} from '../constants'
 import { CircularButton } from './Buttons'
 import ProductContentIcons from './ProductContentIcons'
 import { useNavigation } from '@react-navigation/native'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SelectDropdown from 'react-native-select-dropdown'
 import { BASE_URL } from '@env'
 import useToken from '../hooks/useToken'
@@ -17,6 +17,10 @@ const ProductCard = ({ product, user }) => {
   const [isProcessing, setIsProcessing] = useState(false)
 
   const { fetchToken } = useToken()
+
+  useEffect(() => {
+    user["likes"].map(item => item.id === product.id ? setIsInFavorites(true) : setIsInFavorites(false))
+  },[])
 
   const addToFavorites = () => {
     setIsProcessing(true)
@@ -33,7 +37,7 @@ const ProductCard = ({ product, user }) => {
           console.log('Status Code: ', response.status);
           throw new Error(response.status);
         }
-        setIsInFavorites(true)
+        setIsInFavorites(prev => !prev)
       })
       .catch(err => console.log(err))
       .finally(() => setIsProcessing(false))
@@ -55,7 +59,7 @@ const ProductCard = ({ product, user }) => {
             console.log('Status Code: ', response.status);
             throw new Error(response.status);
         }
-        setIsInFavorites(false)
+        setIsInFavorites(prev => !prev)
       })
       .catch(err => console.log(err))
       .finally(() => setIsProcessing(false))

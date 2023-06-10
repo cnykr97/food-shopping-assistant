@@ -9,7 +9,7 @@ import { BASE_URL } from '@env'
 
 const Home = ({ route }) => {
 
-  const {storeToken, fetchToken} = useToken()
+  const {fetchToken} = useToken()
 
   const { user } = route.params
 
@@ -54,19 +54,19 @@ const Home = ({ route }) => {
         translucent={true}
       />
       <View>
-        <View>
+        <View style={{height:"100%"}} >
           <HomeHeader onSearch={handleSearch} user={user} />
-          {/* <ScrollView showsVerticalScrollIndicator={false} >
-            {!!recommendeds.length && recommendeds.map((item) => <ProductCard product={item} user={user} key={item.id} />) }
-          </ScrollView> */}
+          <ScrollView vertical={true} >
+            {recommendeds && recommendeds.map((item) => <ProductCard product={item} user={user} key={item.id} />) }
+          </ScrollView>
           
-          { recommendeds && <FlatList 
+          {/* { recommendeds && <FlatList 
             data={recommendeds}
             renderItem= { ({item}) => <ProductCard product={item} user={user} /> }
             keyExtractor={(item) => item.id}
             showsVerticalScrollIndicator={false}
             //ListHeaderComponent={<HomeHeader onSearch={handleSearch} user={user} />}
-          />}
+          />} */}
         </View>
 
         <View style={{

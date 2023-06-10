@@ -1,54 +1,83 @@
 import { View, Text, SafeAreaView, StyleSheet, Image, Dimensions, TouchableOpacity, ScrollView, Animated, TextInput, Button } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { CircularButton, FocusedStatusBar } from '../components'
 import BasketItemRow from '../components/BasketItemRow'
 import { COLORS, SIZES, assets } from '../constants'
+import useToken from '../hooks/useToken';
+import { BASE_URL } from '@env'
 
 const Baskets = ({route, navigation}) => {
 
    const {width, height} = Dimensions.get('window');
+   const slideAnimation = useRef(new Animated.Value(0)).current
    const { user } = route.params
+   const { fetchUser, fetchToken } = useToken()
 
    const [isCreatingBasket, setIsCreatingBasket] = useState(false)
-   const slideAnimation = useRef(new Animated.Value(0)).current
 
-   let items = user.baskets
+   const [baskets, setBaskets] = useState([])
 
-   const DisplayBasketRows = ({items}) => {
-    return items.map((basket, index) => {
-        return (
-            <BasketItemRow
-                key={index}
-                basket={basket}
-                user={user}
-                navigation={navigation}
-            />
-        )
+   useEffect(() => {
+    fetchToken().then((token) => {
+        fetch(`${BASE_URL}/basket/user`, {
+            method: 'GET',
+            headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : 'Bearer ' + token
+            }
+        })
+        .then(response => response.json())
+        .then(data => setBaskets(data))
     })
+   }, [])
+   
+   const DisplayBasketRows = ({baskets}) => {
+        return baskets.map((basket) => {
+            return (
+                <BasketItemRow
+                    key={basket.id}
+                    basket={basket}
+                    user={user}
+                    navigation={navigation}
+                />
+            )
+        })
    }
 
    const [newBasketName, setNewBasketName] = useState('')
 
    const CreateBasketField = () => {
 
-    const handleSubmit = () => {
-        console.log("new basket created")
-        setNewBasketName('')
-        setIsCreatingBasket(false)
-    }
-    return(
-        <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: SIZES.base, marginTop: SIZES.medium}} >
-            <TextInput
-                value={newBasketName}
-                onChangeText={setNewBasketName}
-                placeholder='new basket name'
-                style={styles.inputFiled}
-            />
-            <TouchableOpacity onPress={handleSubmit} style={styles.buttonCreate} >
-                <Text style={{color: COLORS.secondary, fontWeight: 'bold'}} >Create</Text>
-            </TouchableOpacity>
-        </View>
-    )
+        const handleSubmit = () => {
+            fetchToken().then(token => {
+                fetch(`${BASE_URL}/basket/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({
+                        "name" : newBasketName,
+                        "products": []
+                    })
+                })
+                .then(() => setNewBasketName(''))
+            })
+            
+        }
+        return(
+            <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: SIZES.base, marginTop: SIZES.medium}} >
+                <TextInput
+                    value={newBasketName}
+                    onChangeText={setNewBasketName}
+                    placeholder='new basket name'
+                    style={styles.inputFiled}
+                />
+                <TouchableOpacity onPress={handleSubmit} style={styles.buttonCreate} >
+                    <Text style={{color: COLORS.secondary, fontWeight: 'bold'}} >Create</Text>
+                </TouchableOpacity>
+            </View>
+        )
    }
 
    const toggleCreateBasket = () => {
@@ -82,7 +111,7 @@ const Baskets = ({route, navigation}) => {
                 {isCreatingBasket && <CreateBasketField/> }
             </Animated.View>
             <Animated.ScrollView style={styles.content } >
-                <DisplayBasketRows items={items} />
+                {baskets && <DisplayBasketRows baskets={baskets} />}
             </Animated.ScrollView>
         </View>
         

@@ -18,10 +18,11 @@ import SignUp from "./screens/SignUp";
 import BasketDetails from "./screens/BasketDetails";
 import ProductNotFound from "./screens/ProductNotFound";
 import { useState } from "react";
+import { BASE_URL } from "@env"
 
 // export NODE_OPTIONS=--openssl-legacy-provider
 
-const LoginContainer = ({setLogged, theme}) => {
+const LoginContainer = ({login, theme}) => {
   const Stack = createNativeStackNavigator()
 
   return (
@@ -33,10 +34,10 @@ const LoginContainer = ({setLogged, theme}) => {
         }}
       >
         <Stack.Screen name="Login" > 
-          {props => <Login {...props} setLogged={setLogged} />}
+          {props => <Login {...props} login={login} />}
         </Stack.Screen>
         <Stack.Screen name="SignUp" > 
-          {props => <SignUp {...props} setLogged={setLogged} />}
+          {props => <SignUp {...props} login={login} />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
@@ -44,7 +45,7 @@ const LoginContainer = ({setLogged, theme}) => {
   )
 }
 
-const Main = ({setLogged, theme}) => {
+const Main = ({logout, theme, user}) => {
   const Tab = createBottomTabNavigator();
   const HiddenTabBarButton = () => <View style={{ width:0, height:0 }} />
 
@@ -77,15 +78,15 @@ const Main = ({setLogged, theme}) => {
           },
         })}>
 
-        <Tab.Screen name="Home" component={Home} initialParams={{user: users[1]}} />
+        <Tab.Screen name="Home" component={Home} initialParams={{user: user}} />
         <Tab.Screen name="TakePhoto" component={TakePhoto}/>
-        <Tab.Screen name="Profile" component={Profile} initialParams={{user: users[1], setLogged: setLogged}} />
+        <Tab.Screen name="Profile" component={Profile} initialParams={{user: user, logout: logout}} />
         <Tab.Screen name="ProductDetails" component={ProductDetails} options={{ tabBarButton: HiddenTabBarButton }} />
         <Tab.Screen name="ChangePreferences" component={ChangePreferences} options={{ tabBarButton: HiddenTabBarButton }} />
         <Tab.Screen name="Baskets" component={Baskets} options={{ tabBarButton: HiddenTabBarButton }} />
         <Tab.Screen name="Favorites" component={Favorites} options={{ tabBarButton: HiddenTabBarButton }} />
         <Tab.Screen name="BasketDetails" component={BasketDetails} options={{ tabBarButton: HiddenTabBarButton }} />
-        <Tab.Screen name="ProductNotFound" component={ProductNotFound} options={{ tabBarButton: HiddenTabBarButton }} initialParams={{user: users[1]}} />
+        <Tab.Screen name="ProductNotFound" component={ProductNotFound} options={{ tabBarButton: HiddenTabBarButton }} initialParams={{user: user}} />
       </Tab.Navigator>
 
     </NavigationContainer>
@@ -93,8 +94,22 @@ const Main = ({setLogged, theme}) => {
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [user, setUser] = useState({})
 
-  const setLogged = () => setIsLoggedIn(prev => !prev)
+  const login = (access_token) => {
+    fetch(`${BASE_URL}/users/current`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + access_token.toString()
+      }
+    })
+    .then(response => response.json())
+    .then(json => setUser(json))
+    .finally(() => setIsLoggedIn(true))
+  }
+
+  const logout = () => setIsLoggedIn(false)
 
   const [loaded] = useFonts({
     InterBold: require("./assets/fonts/Inter-Bold.ttf"),
@@ -114,7 +129,7 @@ const App = () => {
     }
   }
   
-  return isLoggedIn ? <Main setLogged={setLogged} theme={theme} /> : <LoginContainer setLogged={setLogged} theme={theme} />
+  return isLoggedIn ? <Main logout={logout} theme={theme} user={user} /> : <LoginContainer login={login} theme={theme} />
 }
 
 export default App;

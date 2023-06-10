@@ -1,14 +1,22 @@
 import { Text, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { COLORS, SIZES } from '../constants'
 import { TouchableOpacity } from 'react-native'
 
 const BasketItemRow = ({basket, user, navigation}) => {
 
+  const [totalCalories, setTotalCalories] = useState(0)
+
+  useEffect(() => {
+    let total = 0
+    basket.products.map(product => total += product.nutrition.calories)
+    setTotalCalories(total)
+  },[])
+
   return (
     <TouchableOpacity style={styles.container} onPress={() => {navigation.navigate("BasketDetails",{basket, user})}} >
-        <Text style={styles.basketName} > {basket.basketName} </Text>
-        <Text> Total Calories: {basket.totalCalories} </Text>
+        <Text style={styles.basketName} > {basket.name} </Text>
+        <Text> Total Calories: {totalCalories} </Text>
     </TouchableOpacity>
   )
 }
