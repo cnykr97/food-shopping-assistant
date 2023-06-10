@@ -52,7 +52,7 @@ const Baskets = ({route, navigation}) => {
    }
 
    const toggleCreateBasket = () => {
-    setIsCreatingBasket(!isCreatingBasket)
+    setIsCreatingBasket(prev => !prev)
     Animated.timing(slideAnimation, {
         toValue: isCreatingBasket? -300 : 0,
         duration: 500,

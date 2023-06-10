@@ -5,6 +5,8 @@ import ProductContentIcons from './ProductContentIcons'
 import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
 import SelectDropdown from 'react-native-select-dropdown'
+import { BASE_URL } from '@env'
+import useToken from '../hooks/useToken'
 
 const ProductCard = ({ product, user }) => {
   const navigation = useNavigation();
@@ -12,12 +14,60 @@ const ProductCard = ({ product, user }) => {
   const [isInFavorites, setIsInFavorites] = useState(false)
   const [addToBasketSection, setaddToBasketSection] = useState(false)
 
-  const AddToBasket = ({user, product}) => {
-    const [selectedBasket, setselectedBasket] = useState(user.baskets[0].id)
+  const [isProcessing, setIsProcessing] = useState(false)
 
-    const handleAddProductToBasket = () => {
-      console.log("product added to basket")
-    }
+  const { fetchToken } = useToken()
+
+  const addToFavorites = () => {
+    setIsProcessing(true)
+    fetchToken().then( token => {
+      fetch(`${BASE_URL}/product/like/${product.id}`, {
+        method: 'POST',
+        headers : {
+          'Content-Type' : 'application/json',
+          'Authorization' : 'Bearer ' + token
+         }
+      })
+      .then( response => {
+        if (!response.ok) {
+          console.log('Status Code: ', response.status);
+          throw new Error(response.status);
+        }
+        setIsInFavorites(true)
+      })
+      .catch(err => console.log(err))
+      .finally(() => setIsProcessing(false))
+    }) 
+  }
+
+  const removeFromFavorites = () => {
+    setIsProcessing(true)
+    fetchToken().then( (token) => {
+      fetch(`${BASE_URL}/product/unlike/${product.id}`, {
+        method: 'POST',
+        headers : {
+          'Content-Type' : 'application/json',
+          'Authorization' : 'Bearer ' + token
+         }
+      })
+      .then(response => {
+        if (!response.ok) {
+            console.log('Status Code: ', response.status);
+            throw new Error(response.status);
+        }
+        setIsInFavorites(false)
+      })
+      .catch(err => console.log(err))
+      .finally(() => setIsProcessing(false))
+    })
+  }
+
+  const handleFavorites = () => {
+    isInFavorites ? addToFavorites() : removeFromFavorites() 
+  }
+
+  const AddToBasketSection = ({user, product}) => {
+    const [selectedBasket, setselectedBasket] = useState(user.baskets[0].id)
 
     return (
       <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between', padding: SIZES.font}} >
@@ -83,7 +133,8 @@ const ProductCard = ({ product, user }) => {
             height={50} 
             right={10} 
             top={10}
-            handlePress= {() => setIsInFavorites(!isInFavorites)}
+            handlePress= {handleFavorites}
+            disabled={isProcessing}
             />
           <CircularButton 
             imgUrl={assets.addToBasketIcon} 
@@ -91,7 +142,8 @@ const ProductCard = ({ product, user }) => {
             height={50} 
             right={10} 
             top={70}
-            handlePress= {() => setaddToBasketSection(!addToBasketSection)}
+            handlePress= {handleFavorites}
+            disabled={isProcessing}
             />
           <ProductContentIcons product={product} />
         </View>
@@ -101,7 +153,7 @@ const ProductCard = ({ product, user }) => {
               <Text style={{ fontFamily: FONTS.light }} > {product.weight} </Text>
         </View>
         <View>
-          {addToBasketSection ? <AddToBasket user={user} product={product}/> : null}
+          {addToBasketSection ? <AddToBasketSection user={user} product={product}/> : null}
         </View>
         
     </View>

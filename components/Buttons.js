@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image} from 'react-native'
 import { COLORS, SIZES, FONTS, SHADOWS } from '../constants'
 
-export const CircularButton = ({imgUrl, handlePress, ...props}) => {
+export const CircularButton = ({imgUrl, handlePress,disabled, ...props}) => {
     return(
         <TouchableOpacity style={{
             width: props.width,
@@ -15,6 +15,7 @@ export const CircularButton = ({imgUrl, handlePress, ...props}) => {
             ...props
         }}
         onPress= { handlePress }
+        disabled= {disabled}
         >
             <Image source={imgUrl} resizeMode="contain" style={{width: props.width*(3/4), height: props.height*(3/4)}} />
         </TouchableOpacity>

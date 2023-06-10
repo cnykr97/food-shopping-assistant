@@ -34,7 +34,7 @@ const Home = ({ route }) => {
   useEffect(() => {
     fetchToken().then((token) => {
       fetch(`${BASE_URL}/product/recommended`, {
-        method: "POST",
+        method: "GET",
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + token,

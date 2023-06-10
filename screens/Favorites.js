@@ -1,37 +1,64 @@
 import { View, Text, SafeAreaView, StyleSheet, Dimensions, Image } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CircularButton, FocusedStatusBar, ProductCard } from '../components'
 import { COLORS, SIZES, assets } from '../constants'
 import { FlatList } from 'react-native-gesture-handler'
+import { BASE_URL } from '@env'
+import useToken from '../hooks/useToken';
 
 const Favorites = ({route, navigation}) => {
-    const { user } = route.params
-
+    //const { user } = route.params
     const {width, height} = Dimensions.get('window');
 
-  return (
-    <SafeAreaView style={styles.container} >
-        <FocusedStatusBar 
-            barStyle="dark-content"
-            backgroundColor="transparent"
-            translucent={true}
-        />
-        <View style={{flex:1, flexdirection:'column'}} >
-            <View style={styles.header} >
-                <CircularButton imgUrl={assets.left} handlePress={() => navigation.navigate('Profile')}  top={SIZES.extraLarge} left={SIZES.small} width={50} height={50} />
-                <Image source={assets.favoritesScreenHeaderImage} style={{width: width*0.4, height: height*0.2}} />
-                <Text style={styles.title} >Favorites</Text>
-            </View>
-            <FlatList
-                data={user.favorites}
-                renderItem= { ({item}) => <ProductCard product={item} user={user} /> }
-                keyExtractor={(item) => item.id}
-                showsVerticalScrollIndicator={false}
-                style={{padding: SIZES.extraLarge}}
+    const { fetchToken } = useToken()
+
+    const [favorites, setFavorites] = useState([])
+
+    useEffect(() => {
+        fetchToken().then((token) => {
+            fetch(`${BASE_URL}/product/like`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.log('Status Code: ', response.status);
+                    throw new Error(response.status);
+                }
+                return response.json();
+            })
+            .then(data => setFavorites(data))
+            .catch(error => console.log(error))
+        }) 
+    }, [])
+
+    return (
+        <SafeAreaView style={styles.container} >
+            <FocusedStatusBar 
+                barStyle="dark-content"
+                backgroundColor="transparent"
+                translucent={true}
             />
-        </View>
-    </SafeAreaView>
-  )
+            <View style={{display: 'flex', flexdirection:'column'}} >
+                <View style={styles.header} >
+                    <CircularButton imgUrl={assets.left} handlePress={() => navigation.navigate('Profile')}  top={SIZES.extraLarge} left={SIZES.small} width={50} height={50} />
+                    <Image source={assets.favoritesScreenHeaderImage} style={{width: width*0.4, height: height*0.2}} />
+                    <Text style={styles.title} >Favorites</Text>
+                </View>
+                
+                {!!favorites.length && <FlatList
+                    data={favorites}
+                    renderItem= { ({item}) => <ProductCard product={item} user={user} /> }
+                    keyExtractor={(item) => item.id}
+                    showsVerticalScrollIndicator={false}
+                    style={{padding: SIZES.extraLarge}}
+                />}
+            </View>
+        </SafeAreaView>
+    )
 }
 
 const styles = StyleSheet.create({
