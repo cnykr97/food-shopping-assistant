@@ -7,7 +7,7 @@ import { BASE_URL } from '@env'
 import useToken from '../hooks/useToken';
 
 const Favorites = ({route, navigation}) => {
-    //const { user } = route.params
+    const { user } = route.params
     const {width, height} = Dimensions.get('window');
 
     const { fetchToken } = useToken()

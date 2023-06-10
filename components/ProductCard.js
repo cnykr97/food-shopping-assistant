@@ -63,7 +63,7 @@ const ProductCard = ({ product, user }) => {
   }
 
   const handleFavorites = () => {
-    isInFavorites ? addToFavorites() : removeFromFavorites() 
+    isInFavorites ? removeFromFavorites() : addToFavorites() 
   }
 
   const AddToBasketSection = ({user, product}) => {
@@ -150,7 +150,7 @@ const ProductCard = ({ product, user }) => {
 
         <View style={{width:"100%", padding: SIZES.font}}>
               <Text style={{ fontFamily: FONTS.semiBold }} > {product.name} </Text>
-              <Text style={{ fontFamily: FONTS.light }} > {product.weight} </Text>
+              {/* <Text style={{ fontFamily: FONTS.light }} > {product.weight} </Text> */}
         </View>
         <View>
           {addToBasketSection ? <AddToBasketSection user={user} product={product}/> : null}

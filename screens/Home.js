@@ -41,7 +41,8 @@ const Home = ({ route }) => {
         },
       })
       .then(response => response.json())
-      .then(data => setRecommendeds(data))
+      .then(data => setRecommendeds(data["products"]))
+      .catch(error => console.log('Error:', error)) 
     });
   }, []);
 
@@ -55,17 +56,17 @@ const Home = ({ route }) => {
       <View>
         <View>
           <HomeHeader onSearch={handleSearch} user={user} />
-          <ScrollView showsVerticalScrollIndicator={false} >
+          {/* <ScrollView showsVerticalScrollIndicator={false} >
             {!!recommendeds.length && recommendeds.map((item) => <ProductCard product={item} user={user} key={item.id} />) }
-          </ScrollView>
+          </ScrollView> */}
           
-          {/* { recommendeds.length && <FlatList 
+          { recommendeds && <FlatList 
             data={recommendeds}
             renderItem= { ({item}) => <ProductCard product={item} user={user} /> }
             keyExtractor={(item) => item.id}
             showsVerticalScrollIndicator={false}
             //ListHeaderComponent={<HomeHeader onSearch={handleSearch} user={user} />}
-          />} */}
+          />}
         </View>
 
         <View style={{
