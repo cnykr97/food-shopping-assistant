@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StyleSheet, Dimensions, Image } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, Dimensions, Image, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { CircularButton, FocusedStatusBar, ProductCard } from '../components'
 import { COLORS, SIZES, assets } from '../constants'
@@ -42,20 +42,24 @@ const Favorites = ({route, navigation}) => {
                 backgroundColor="transparent"
                 translucent={true}
             />
-            <View style={{display: 'flex', flexdirection:'column'}} >
+            <View style={{display: 'flex', flexdirection:'column', height:"100%"}} >
                 <View style={styles.header} >
                     <CircularButton imgUrl={assets.left} handlePress={() => navigation.navigate('Profile')}  top={SIZES.extraLarge} left={SIZES.small} width={50} height={50} />
                     <Image source={assets.favoritesScreenHeaderImage} style={{width: width*0.4, height: height*0.2}} />
                     <Text style={styles.title} >Favorites</Text>
                 </View>
-                
-                {!!favorites.length && <FlatList
+                <ScrollView style={{height: "100%", width:"100%", padding: SIZES.base}} vertical={true} >
+                    {favorites && favorites.map((product) => <ProductCard product={product} user={user} key={product.id}/>)}
+                </ScrollView>
+
+                {/* {favorites && <FlatList
                     data={favorites}
                     renderItem= { ({item}) => <ProductCard product={item} user={user} /> }
                     keyExtractor={(item) => item.id}
                     showsVerticalScrollIndicator={false}
                     style={{padding: SIZES.extraLarge}}
-                />}
+                />} */}
+
             </View>
         </SafeAreaView>
     )

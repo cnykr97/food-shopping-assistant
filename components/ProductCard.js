@@ -19,7 +19,8 @@ const ProductCard = ({ product, user }) => {
   const { fetchToken } = useToken()
 
   useEffect(() => {
-    user["likes"].map(item => item.id === product.id ? setIsInFavorites(true) : setIsInFavorites(false))
+    user["likes"].map(item => {if (item.id === product.id) {setIsInFavorites(true)}} )
+    console.log(product)
   },[])
 
   const addToFavorites = () => {
@@ -122,7 +123,7 @@ const ProductCard = ({ product, user }) => {
         <View style={{width:"100%", height:250}} >
           <TouchableOpacity onPress={() => navigation.navigate("ProductDetails", {product, navigation, user}) } >
             <Image 
-                source={product.photo_url}
+                source={{ uri: product["photo_url"] }}
                 resizeMode="contain"
                 style={{
                     width:"100%",

@@ -22,23 +22,25 @@ const ChangePreferences = ({ navigation }) => {
     const [isSesame, setIsSesame] = useState(false);
 
     useEffect(() => {
-        fetchUser().then(user => {
-                console.log(user)
+        fetchUser()
+            .then(user => {
+                console.log(user);
                 setUser(user);
+                user.diets.map((diet) => {
+                    if (diet.name === "celiac") { setIsCeliacFree(true)}
+                    if (diet.name === "vegan") { setIsVegan(true)}
+                    if (diet.name === "gluten_intolerance") { setIsGlutenFree(true)}
+                    if (diet.name === "lactose") { setIsLactoseFree(true)}
+                    if (diet.name === "peanut_allergy") { setIsPeanut(true)}
+                    if (diet.name === "sesame_allergy") { setIsSesame(true)}
+                    if (diet.name === "organic") { setIsOrganic(true)}
+                });
             })
-        .then(() => user.diets.map((diet) => {
-            if (diet.name === "celiac") { setIsCeliacFree(true)}
-            if (diet.name === "vegan") { setIsVegan(true)}
-            if (diet.name === "gluten_intolerance") { setIsGlutenFree(true)}
-            if (diet.name === "lactose") { setIsLactoseFree(true)}
-            if (diet.name === "peanut_allergy") { setIsPeanut(true)}
-            if (diet.name === "sesame_allergy") { setIsSesame(true)}
-            if (diet.name === "organic") { setIsOrganic(true)}
-        }))
-        .catch(error => {
-            console.error(error);
-        });
-    },[]);
+            .catch(error => {
+                console.error(error);
+            });
+    }, []);
+
 
 
     const saveChanges = () => {

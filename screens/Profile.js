@@ -21,7 +21,7 @@ const Profile = ({ route }) => {
 
             <View style={styles.topSection}>
                 <Image source={assets.pp1} style={styles.profilePic} />
-                <Text style={styles.username}>{user.name + " " + user.surname}</Text>
+                <Text style={styles.username}>{user.name}</Text>
                 <Text style={styles.email}>{user.email}</Text>
                 <TouchableOpacity style={styles.logoutButton} onPress={logout}>
                   <Image 

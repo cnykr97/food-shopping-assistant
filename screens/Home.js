@@ -41,7 +41,8 @@ const Home = ({ route }) => {
         },
       })
       .then(response => response.json())
-      .then(data => setRecommendeds(data["products"]))
+      .then(data => setRecommendeds(data.products))
+      .then( () => console.log(recommendeds))
       .catch(error => console.log('Error:', error)) 
     });
   }, []);
