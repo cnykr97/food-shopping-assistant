@@ -5,7 +5,7 @@ import { FocusedStatusBar } from '../components'
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 const ProductNotFound = ({route, navigation}) => {
-    const {user, photo} = route.params
+    const {photo} = route.params
 
     const [isSelected, setisSelected] = useState(false)
 

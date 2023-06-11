@@ -25,7 +25,7 @@ const InfoDisplay = ({product}) => {
                 }
                 return response.json();
             })
-            .then(data => console.log(data))
+            .then(data => setIsSuitable(data))
             .catch(error => console.log(error))
         })
     }, [])

@@ -8,7 +8,7 @@ const ProductContentIcons = ({product}) => {
   const [isCeliacFree, setIsCeliacFree] = useState(true);
   const [isLactoseFree, setIsLactoseFree] = useState(true);
   const [isVegan, setIsVegan] = useState(true);
-  const [isOrganic, setIsOrganic] = useState(true);
+  const [isOrganic, setIsOrganic] = useState(false);
   const [isPeanut, setIsPeanut] = useState(true);
   const [isSesame, setIsSesame] = useState(true);
 
@@ -16,13 +16,19 @@ const ProductContentIcons = ({product}) => {
     product.ingredients.map((ingredient) => {
         if (ingredient.name === 'gluten') {setIsGlutenFree(false)}
         if (ingredient.name === 'lactose') {setIsLactoseFree(false)}
-        if (ingredient.name === 'msg') {setIsOrganic(false)}
+        if (ingredient.name === 'organic') {setIsOrganic(true)}
         if (ingredient.name === 'trace amount of gluten') {setIsCeliacFree(false)}
         if (ingredient.name === 'not_vegan') {setIsVegan(false)}
         if (ingredient.name === 'peanut') {setIsPeanut(false)}
         if (ingredient.name === 'sesame') {setIsSesame(false)}
       })
   }, [])
+
+  const logoStyle={
+    width: 60,
+    height: 60,
+    borderRadius: '50%'
+  }
 
   return (
     <View style={{

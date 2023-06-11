@@ -8,7 +8,7 @@ import SelectDropdown from 'react-native-select-dropdown'
 import { BASE_URL } from '@env'
 import useToken from '../hooks/useToken'
 
-const ProductCard = ({ product, user }) => {
+const ProductCard = ({ product }) => {
   const navigation = useNavigation();
 
   const [isInFavorites, setIsInFavorites] = useState(false)
@@ -16,11 +16,21 @@ const ProductCard = ({ product, user }) => {
 
   const [isProcessing, setIsProcessing] = useState(false)
 
-  const { fetchToken } = useToken()
+  const { fetchToken, fetchUser } = useToken()
+
+  let user;
 
   useEffect(() => {
-    user["likes"].map(item => {if (item.id === product.id) {setIsInFavorites(true)}} )
-  },[])
+    async function fetchUserData() {
+      user = await fetchUser();
+      user["likes"].map(item => {
+        if (item.id === product.id) {
+          setIsInFavorites(true)
+        }
+      })
+    }
+    fetchUserData();
+  }, [])
 
   const addToFavorites = () => {
     setIsProcessing(true)

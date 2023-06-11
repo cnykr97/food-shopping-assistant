@@ -24,7 +24,6 @@ const ChangePreferences = ({ navigation }) => {
     useEffect(() => {
         fetchUser()
             .then(user => {
-                console.log(user);
                 setUser(user);
                 user.diets.map((diet) => {
                     if (diet.name === "celiac") { setIsCeliacFree(true)}

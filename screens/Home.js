@@ -42,7 +42,6 @@ const Home = ({ route }) => {
       })
       .then(response => response.json())
       .then(data => setRecommendeds(data.products))
-      .then( () => console.log(recommendeds))
       .catch(error => console.log('Error:', error)) 
     });
   }, []);
@@ -58,7 +57,7 @@ const Home = ({ route }) => {
         <View style={{height:"100%"}} >
           <HomeHeader onSearch={handleSearch} user={user} />
           <ScrollView vertical={true} >
-            {recommendeds && recommendeds.map((item) => <ProductCard product={item} user={user} key={item.id} />) }
+            {recommendeds && recommendeds.map((item) => <ProductCard product={item} key={item.id} />) }
           </ScrollView>
           
           {/* { recommendeds && <FlatList 

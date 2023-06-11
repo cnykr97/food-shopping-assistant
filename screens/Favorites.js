@@ -6,8 +6,7 @@ import { FlatList } from 'react-native-gesture-handler'
 import { BASE_URL } from '@env'
 import useToken from '../hooks/useToken';
 
-const Favorites = ({route, navigation}) => {
-    const { user } = route.params
+const Favorites = ({navigation}) => {
     const {width, height} = Dimensions.get('window');
 
     const { fetchToken } = useToken()
@@ -49,17 +48,8 @@ const Favorites = ({route, navigation}) => {
                     <Text style={styles.title} >Favorites</Text>
                 </View>
                 <ScrollView style={{height: "100%", width:"100%", padding: SIZES.base}} vertical={true} >
-                    {favorites && favorites.map((product) => <ProductCard product={product} user={user} key={product.id}/>)}
+                    {favorites && favorites.map((product) => <ProductCard product={product} key={product.id}/>)}
                 </ScrollView>
-
-                {/* {favorites && <FlatList
-                    data={favorites}
-                    renderItem= { ({item}) => <ProductCard product={item} user={user} /> }
-                    keyExtractor={(item) => item.id}
-                    showsVerticalScrollIndicator={false}
-                    style={{padding: SIZES.extraLarge}}
-                />} */}
-
             </View>
         </SafeAreaView>
     )

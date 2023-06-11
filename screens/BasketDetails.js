@@ -63,7 +63,6 @@ const BasketDetails = ({route, navigation}) => {
                 'Authorization': 'Bearer ' + token
             }
         })
-        .then(response => console.log(response.status))
         .then(() => setBaskets((baskets) => baskets.filter(item => item.id!== basket.id)))
         .then(() => navigation.navigate("Baskets", {navigation}))
     })

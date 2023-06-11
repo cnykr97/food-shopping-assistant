@@ -5,6 +5,11 @@ import { CircularButton, FocusedStatusBar, ProductCard } from '../components'
 import { assets, FONTS, SIZES } from '../constants'
 import ContentRow from '../components/ContentRow'
 import InfoDisplay from '../components/InfoDisplay'
+import useToken from '../hooks/useToken'
+
+//const [user, setUser] = useState({})
+
+const { fetchUser } = useToken()
 
 
 const ContentDisplay = ({product}) => {
@@ -17,7 +22,8 @@ const ContentDisplay = ({product}) => {
 }
 
 const ProductDetails = ({ route, navigation }) => {
-  const { product, user } = route.params
+  const { product } = route.params
+  const user = fetchUser()
 
   return (
     <SafeAreaView style={{ display:"flex", flexDirection:"column" }} >
@@ -27,7 +33,7 @@ const ProductDetails = ({ route, navigation }) => {
           backgroundColor="transparent"
           translucent={true}
         />
-        <ProductCard product={product} user={user} />
+        {user && <ProductCard product={product} />}
 
         <CircularButton imgUrl={assets.left} handlePress={navigation.goBack}  top={SIZES.extraLarge} left={SIZES.small} width={50} height={50} />
 

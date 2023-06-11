@@ -57,15 +57,16 @@ const TakePhoto = () => {
     try {
       const response = await axios.post(`${BASE_URL}/product/photo`, data, config)
       setIsLoading(false)
-      for (const product of ProductData) {
-        if (product.trained_name === Object.values(response.data)[1]) {
-          navigation2.navigate("ProductDetails", {product,user})
-        }
+      const product = response.data.product
+      if (product) {
+        navigation2.navigate("ProductDetails", {product, navigation2})
+      }else {
+        navigation2.navigate("ProductNotFound", {photo})
       }
+      
     } catch (err) {
       setIsLoading(false)
       alert(err)
-      navigation2.navigate("ProductNotFound", {user, photo})
     }
   }
 
