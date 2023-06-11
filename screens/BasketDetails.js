@@ -2,22 +2,27 @@ import { View, Text, SafeAreaView, StyleSheet, Image, Dimensions, TouchableOpaci
 import React, { useState } from 'react'
 import { CircularButton, FocusedStatusBar } from '../components'
 import { COLORS, SIZES, assets } from '../constants'
+import { BASE_URL } from '@env'
+import useToken from '../hooks/useToken';
 
 const BasketDetails = ({route, navigation}) => {
 
    const {width, height} = Dimensions.get('window');
-   const { user, basket } = route.params
+   const { basket, totalCalories, setTotalCalories, setBaskets } = route.params
+   const { fetchToken } = useToken()
 
-   const [items, setItems] = useState(basket.items)
+   const [items, setItems] = useState(basket.products)
 
    const DisplayItems = () => {
+
     const handleRemove = (product) => {
-        setItems(items.filter(item => item.id!== product.id))
+        setItems((items) => items.filter(item => item.id!== product.id))
+        
     }
-    if (items.length) {
-        return items.map((product, index) => {
+    if (items.length>0) {
+        return items.map((product) => {
             return (
-                <TouchableOpacity style={styles.itemRow} key={index} onPress={() => {navigation.navigate("ProductDetails", {product, user, navigation})}} >
+                <TouchableOpacity style={styles.itemRow} key={product.id} onPress={() => {navigation.navigate("ProductDetails", {product, navigation})}} >
                     <Image source={product.image} style={{width: 75, height: 75, borderRadius:SIZES.base}} />
                     <Text> {product.name} </Text>
                     <TouchableOpacity onPress={() => handleRemove(product)} >
@@ -30,6 +35,21 @@ const BasketDetails = ({route, navigation}) => {
     return <Text style={{textAlign: 'center', margin: SIZES.base}} >Basket is empty</Text>
    }
 
+   const handleDeleteBasket = () => {
+    fetchToken().then(token => {
+        fetch(`${BASE_URL}/basket/${basket.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
+        .then(response => console.log(response.status))
+        .then(() => setBaskets((baskets) => baskets.filter(item => item.id!== basket.id)))
+        .then(() => navigation.navigate("Baskets", {navigation}))
+    })
+   }
+
    return (
     <SafeAreaView style={styles.container} >
         <FocusedStatusBar 
@@ -40,10 +60,10 @@ const BasketDetails = ({route, navigation}) => {
 
         <View style={{flex: 1, flexDirection: 'column'}} >
             <View style={styles.header} >
-                <CircularButton imgUrl={assets.left} handlePress={() => navigation.navigate("Baskets", {user,basket,navigation})}  top={SIZES.extraLarge} left={SIZES.small} width={50} height={50} />
+                <CircularButton imgUrl={assets.left} handlePress={() => navigation.navigate("Baskets", {navigation})}  top={SIZES.extraLarge} left={SIZES.small} width={50} height={50} />
                 <Image source={assets.basketScreenHeaderImage} style={{width: width*0.5, height: height*0.2, marginBottom: SIZES.extraLarge}} />
                 <View style={{display:'flex', flexDirection:'row', justifyContent: 'space-between', width: '100%'}} >
-                    <Text style={styles.title} >{basket.basketName}</Text>
+                    <Text style={styles.title} >{basket.name}</Text>
                     <TouchableOpacity style={styles.buttonContainer} >
                         <Image source={assets.plusWhite} style={styles.buttonImage} />
                         <Text style={styles.buttonText} >Add Item</Text>
@@ -51,12 +71,18 @@ const BasketDetails = ({route, navigation}) => {
                 </View>
                 <View style={styles.basketInfo} >
                     <Text> Total Calories:  </Text>
-                    <Text> {basket.totalCalories} </Text>
+                    <Text> {totalCalories} </Text>
                 </View>
             </View>
             <ScrollView style={styles.content } >
                 <DisplayItems />
             </ScrollView>
+            <View style={{display: "flex", justifyContent: 'center', alignItems: 'center'}} >
+                <TouchableOpacity style={styles.deleteBasketButton} onPress={handleDeleteBasket} >
+                    <Text style={styles.deleteBasketButtonText} > Delete Basket </Text>
+                </TouchableOpacity>
+            </View>
+            
         </View>
     </SafeAreaView>
    )
@@ -98,7 +124,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: '2px solid',
+        borderWidth: 1.5,
         borderColor: COLORS.white,
         borderRadius: 10,
         padding: SIZES.base,
@@ -119,6 +145,20 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.primary,
         padding: SIZES.base,
         margin: SIZES.base
+    },
+    deleteBasketButton: {
+        width: '50%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: COLORS.attention,
+        padding: SIZES.base,
+        margin: SIZES.large,
+        borderRadius: SIZES.base
+    },
+    deleteBasketButtonText: {
+        color: COLORS.white,
+        fontWeight: "bold"
     }
 })
 

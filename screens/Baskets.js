@@ -6,12 +6,11 @@ import { COLORS, SIZES, assets } from '../constants'
 import useToken from '../hooks/useToken';
 import { BASE_URL } from '@env'
 
-const Baskets = ({route, navigation}) => {
+const Baskets = ({navigation}) => {
 
    const {width, height} = Dimensions.get('window');
    const slideAnimation = useRef(new Animated.Value(0)).current
-   const { user } = route.params
-   const { fetchUser, fetchToken } = useToken()
+   const { fetchToken } = useToken()
 
    const [isCreatingBasket, setIsCreatingBasket] = useState(false)
 
@@ -31,37 +30,43 @@ const Baskets = ({route, navigation}) => {
     })
    }, [])
    
-   const DisplayBasketRows = ({baskets}) => {
+   const DisplayBasketRows = () => {
         return baskets.map((basket) => {
             return (
                 <BasketItemRow
                     key={basket.id}
                     basket={basket}
-                    user={user}
                     navigation={navigation}
+                    setBaskets = {setBaskets}
                 />
             )
         })
    }
 
-   const [newBasketName, setNewBasketName] = useState('')
-
    const CreateBasketField = () => {
+        const [newBasketName, setNewBasketName] = useState('')
 
         const handleSubmit = () => {
+            if (!newBasketName) {
+                console.log('Please enter a name')
+                return 
+            }
             fetchToken().then(token => {
+                const newBasket = {
+                    "name" : newBasketName,
+                    "products": []
+                }
                 fetch(`${BASE_URL}/basket/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + token
                     },
-                    body: JSON.stringify({
-                        "name" : newBasketName,
-                        "products": []
-                    })
+                    body: JSON.stringify(newBasket)
                 })
-                .then(() => setNewBasketName(''))
+                .then((response => response.json()))
+                .then(json => setBaskets({...baskets, ...json}))
+                .finally(() => setNewBasketName(''))
             })
             
         }
@@ -69,7 +74,7 @@ const Baskets = ({route, navigation}) => {
             <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: SIZES.base, marginTop: SIZES.medium}} >
                 <TextInput
                     value={newBasketName}
-                    onChangeText={setNewBasketName}
+                    onChangeText={(value) => setNewBasketName(value)}
                     placeholder='new basket name'
                     style={styles.inputFiled}
                 />
@@ -111,7 +116,7 @@ const Baskets = ({route, navigation}) => {
                 {isCreatingBasket && <CreateBasketField/> }
             </Animated.View>
             <Animated.ScrollView style={styles.content } >
-                {baskets && <DisplayBasketRows baskets={baskets} />}
+                {baskets && <DisplayBasketRows />}
             </Animated.ScrollView>
         </View>
         

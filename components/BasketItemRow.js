@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { COLORS, SIZES } from '../constants'
 import { TouchableOpacity } from 'react-native'
 
-const BasketItemRow = ({basket, user, navigation}) => {
+const BasketItemRow = ({basket, navigation, setBaskets}) => {
 
   const [totalCalories, setTotalCalories] = useState(0)
 
@@ -11,10 +11,10 @@ const BasketItemRow = ({basket, user, navigation}) => {
     let total = 0
     basket.products.map(product => total += product.nutrition.calories)
     setTotalCalories(total)
-  },[])
+  },[totalCalories])
 
   return (
-    <TouchableOpacity style={styles.container} onPress={() => {navigation.navigate("BasketDetails",{basket, user})}} >
+    <TouchableOpacity style={styles.container} onPress={() => {navigation.navigate("BasketDetails",{basket, totalCalories, setTotalCalories, setBaskets})}} >
         <Text style={styles.basketName} > {basket.name} </Text>
         <Text> Total Calories: {totalCalories} </Text>
     </TouchableOpacity>

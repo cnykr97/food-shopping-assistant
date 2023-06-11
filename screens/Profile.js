@@ -42,7 +42,7 @@ const Profile = ({ route }) => {
                   />
                   <Text style={styles.buttonText}>Favorites</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate("Baskets", {user, navigation})}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate("Baskets", {navigation})}>
                   <Image 
                     source={assets.basketIcon} 
                     resizeMode="contain"  
