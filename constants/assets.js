@@ -7,6 +7,9 @@ import heartIcon from "../assets/icons/heart-icon.png";
 import glutenFreeIcon from "../assets/icons/gluten-free-icon.png";
 import lactoseFreeIcon from "../assets/icons/lactose-free-icon.png";
 import veganIcon from "../assets/icons/vegan-icon.png";
+import sesameFreeIcon from "../assets/icons/sesameFreeIcon.png";
+import peanutFreeIcon from "../assets/icons/peanutFreeIcon.png";
+import organicIcon from "../assets/icons/organicIcon.png";
 import checkIcon from "../assets/icons/check-icon.png";
 import attentionIcon from "../assets/icons/attention-icon.png";
 import caloriesIcon from "../assets/icons/calories-icon.png";
@@ -27,6 +30,7 @@ import removeFromFavoritesIcon from "../assets/icons/removeFromFavoritesIcon.png
 import addToBasketIcon from "../assets/icons/addToBasketIcon.png";
 import startShoppingIcon from "../assets/icons/startShoppingIcon.png";
 import removeIcon from "../assets/icons/removeIcon.png";
+
 
 
 import logo from "../assets/images/logo.png"
@@ -61,6 +65,9 @@ export default {
     glutenFreeIcon,
     lactoseFreeIcon,
     veganIcon,
+    sesameFreeIcon,
+    peanutFreeIcon,
+    organicIcon,
     checkIcon,
     attentionIcon,
     caloriesIcon,

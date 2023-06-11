@@ -7,6 +7,8 @@ import axios from 'axios';
 import { ProductData } from '../constants';
 import { useNavigation } from '@react-navigation/native';
 import ProductNotFound from './ProductNotFound';
+import { BASE_URL} from '@env'
+import  useToken  from '../hooks/useToken'
 
 const LoadingScreen = () => {
   return (
@@ -25,6 +27,8 @@ const TakePhoto = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [permission, requestPermission] = Camera.useCameraPermissions()
 
+  const { fetchToken } = useToken()
+
   const takePic = async () => {
     let options = {
       quality: 1,
@@ -38,19 +42,20 @@ const TakePhoto = () => {
   }
 
   const fetchProductData = async () => {
+    let token = await fetchToken()
     let data = new FormData();
-    data.append('file', { uri: photo.uri, name: 'photo.png', filename: 'imageName.jpg', type: 'image/jpg' })
+    data.append('file', { uri: photo.uri, name: 'photo.png', filename: 'imageName.jpg', type: 'image/jpeg' })
 
     let config = {
       headers: { 
         'accept': 'application/json',
         'Content-Type': 'multipart/form-data',
-        'responseType': 'json'
+        'Authorization': 'Bearer ' + token,
       }
     }
 
     try {
-      const response = await axios.post('http://34.240.229.186/photo', data, config)
+      const response = await axios.post(`${BASE_URL}/product/photo`, data, config)
       setIsLoading(false)
       for (const product of ProductData) {
         if (product.trained_name === Object.values(response.data)[1]) {

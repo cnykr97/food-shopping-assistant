@@ -20,7 +20,6 @@ const ProductCard = ({ product, user }) => {
 
   useEffect(() => {
     user["likes"].map(item => {if (item.id === product.id) {setIsInFavorites(true)}} )
-    console.log(product)
   },[])
 
   const addToFavorites = () => {
@@ -121,7 +120,7 @@ const ProductCard = ({ product, user }) => {
         }}
         >
         <View style={{width:"100%", height:250}} >
-          <TouchableOpacity onPress={() => navigation.navigate("ProductDetails", {product, navigation, user}) } >
+          <TouchableOpacity onPress={() => navigation.navigate("ProductDetails", {product, navigation, user}) } style={{padding: SIZES.base}} >
             <Image 
                 source={{ uri: product["photo_url"] }}
                 resizeMode="contain"
