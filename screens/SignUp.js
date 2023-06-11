@@ -144,7 +144,7 @@ const SignUp = ({route, navigation}) => {
                     <Switch 
                         value={isGlutenFree} 
                         onValueChange={() => setIsGlutenFree(prev => !prev)}
-                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                        trackColor={{false: COLORS.primary, true: COLORS.check}}
                         />
                 </View>
 
@@ -153,7 +153,7 @@ const SignUp = ({route, navigation}) => {
                     <Switch 
                         value={isCeliacFree} 
                         onValueChange={() => setIsCeliacFree(prev => !prev)} 
-                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                        trackColor={{false: COLORS.primary, true: COLORS.check}}
                         />
                 </View>
 
@@ -162,7 +162,7 @@ const SignUp = ({route, navigation}) => {
                     <Switch 
                         value={isLactoseFree} 
                         onValueChange={() => setIsLactoseFree(prev => !prev)} 
-                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                        trackColor={{false: COLORS.primary, true: COLORS.check}}
                         />
                 </View>
 
@@ -171,7 +171,7 @@ const SignUp = ({route, navigation}) => {
                     <Switch 
                         value={isVegan} 
                         onValueChange={() => setIsVegan(prev => !prev)} 
-                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                        trackColor={{false: COLORS.primary, true: COLORS.check}}
                         />
                 </View>
                 <View style={styles.preference}>
@@ -179,7 +179,7 @@ const SignUp = ({route, navigation}) => {
                     <Switch 
                         value={isOrganic} 
                         onValueChange={() => setIsOrganic(prev => !prev)} 
-                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                        trackColor={{false: COLORS.primary, true: COLORS.check}}
                         />
                 </View>
                 <View style={styles.preference}>
@@ -187,7 +187,7 @@ const SignUp = ({route, navigation}) => {
                     <Switch 
                         value={isPeanut} 
                         onValueChange={() => setIsPeanut(prev => !prev)} 
-                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                        trackColor={{false: COLORS.primary, true: COLORS.check}}
                         />
                 </View>
                 <View style={styles.preference}>
@@ -195,12 +195,12 @@ const SignUp = ({route, navigation}) => {
                     <Switch 
                         value={isSesame} 
                         onValueChange={() => setIsSesame(prev => !prev)} 
-                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                        trackColor={{false: COLORS.primary, true: COLORS.check}}
                         />
                 </View>
                 
             </ScrollView>
-            <View style={{alignItems: 'center', marginTop: -SIZES.extraLarge}} >
+            <View style={styles.buttonContainer} >
                 <TouchableOpacity style={styles.button} onPress={handleSignUp} >
                     <Text style={styles.buttonText} > Sign Up </Text>
                 </TouchableOpacity>
@@ -211,31 +211,21 @@ const SignUp = ({route, navigation}) => {
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
+        flex: 1,
         flexDirection: 'column'
     },
     header: {
-        display: 'flex',
+        flex: 0.75,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: COLORS.white
     },
     content: {
-        display: 'flex',
+        flex: 1.25,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: COLORS.secondary,
-    },
-    title: {
-        color: COLORS.white,
-        fontSize: SIZES.large,
-        textAlign: 'center',
-        margin: SIZES.base
-    },
-    preferencesSection: {
-        display: 'flex',
-        padding: SIZES.extraLarge,
-        backgroundColor: COLORS.white,
+        padding: SIZES.base
     },
     inputField: {
         borderWidth: 1,
@@ -244,6 +234,23 @@ const styles = StyleSheet.create({
         padding: SIZES.medium,
         margin: SIZES.base,
         width: '70%'
+    },
+    title: {
+        color: COLORS.white,
+        fontSize: SIZES.large,
+        textAlign: 'center',
+        margin: SIZES.base
+    },
+    preferencesSection: {
+        flex: 2,
+        padding: SIZES.extraLarge,
+        backgroundColor: COLORS.white,
+    },
+    buttonContainer: {
+        flex: 0.5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: -SIZES.extraLarge
     },
     button: {
         backgroundColor: COLORS.secondary,

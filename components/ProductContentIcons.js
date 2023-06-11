@@ -40,7 +40,7 @@ const ProductContentIcons = ({product}) => {
       { isVegan ? <Image source={assets.veganIcon} style={{width: 50, height: 50, borderRadius: '50%'}}/> : null }
       { isPeanut ? <Image source={assets.peanutFreeIcon} style={{width: 50, height: 50, borderRadius: '50%'}}/> : null }
       { isSesame ? <Image source={assets.sesameFreeIcon} style={{width: 50, height: 50, borderRadius: '50%'}}/> : null }
-      { isOrganic ? <Image source={assets.organicIcon} style={{width: 50, height: 50, borderRadius: '50%'}}/> : null }
+      { isOrganic ? <Image source={assets.organicIcon} style={{width: 40, height: 40, borderRadius: '50%', marginLeft: SIZES.base}}/> : null }
     </View>
   )
 }

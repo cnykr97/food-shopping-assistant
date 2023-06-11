@@ -33,7 +33,7 @@ const Favorites = ({route, navigation}) => {
             .then(data => setFavorites(data))
             .catch(error => console.log(error))
         }) 
-    }, [favorites])
+    }, [])
 
     return (
         <SafeAreaView style={styles.container} >
@@ -75,11 +75,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: SIZES.extraLarge*2.2,
-        paddingVertical: SIZES.extraLarge*6
+        paddingHorizontal: SIZES.extraLarge,
+        paddingVertical: SIZES.extraLarge*5
     },
     content: {
-        flex: 1.5
+        flex: 3
     },
     title: {
         color: COLORS.white,

@@ -92,7 +92,7 @@ const ChangePreferences = ({ navigation }) => {
                 <Switch 
                     value={isGlutenFree} 
                     onValueChange={() => setIsGlutenFree(prev => !prev)}
-                    trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                    trackColor={{false: COLORS.primary, true: COLORS.check}}
                     />
             </View>
 
@@ -101,7 +101,7 @@ const ChangePreferences = ({ navigation }) => {
                 <Switch 
                     value={isCeliacFree} 
                     onValueChange={() => setIsCeliacFree(prev => !prev)} 
-                    trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                    trackColor={{false: COLORS.primary, true: COLORS.check}}
                     />
             </View>
 
@@ -110,7 +110,7 @@ const ChangePreferences = ({ navigation }) => {
                 <Switch 
                     value={isLactoseFree} 
                     onValueChange={() => setIsLactoseFree(prev => !prev)} 
-                    trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                    trackColor={{false: COLORS.primary, true: COLORS.check}}
                     />
             </View>
 
@@ -119,7 +119,7 @@ const ChangePreferences = ({ navigation }) => {
                 <Switch 
                     value={isVegan} 
                     onValueChange={() => setIsVegan(prev => !prev)} 
-                    trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                    trackColor={{false: COLORS.primary, true: COLORS.check}}
                     />
             </View>
             <View style={styles.preference}>
@@ -127,7 +127,7 @@ const ChangePreferences = ({ navigation }) => {
                 <Switch 
                     value={isOrganic} 
                     onValueChange={() => setIsOrganic(prev => !prev)} 
-                    trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                    trackColor={{false: COLORS.primary, true: COLORS.check}}
                     />
             </View>
             <View style={styles.preference}>
@@ -135,7 +135,7 @@ const ChangePreferences = ({ navigation }) => {
                 <Switch 
                     value={isPeanut} 
                     onValueChange={() => setIsPeanut(prev => !prev)} 
-                    trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                    trackColor={{false: COLORS.primary, true: COLORS.check}}
                     />
             </View>
             <View style={styles.preference}>
@@ -143,7 +143,7 @@ const ChangePreferences = ({ navigation }) => {
                 <Switch 
                     value={isSesame} 
                     onValueChange={() => setIsSesame(prev => !prev)} 
-                    trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                    trackColor={{false: COLORS.primary, true: COLORS.check}}
                     />
             </View>
 

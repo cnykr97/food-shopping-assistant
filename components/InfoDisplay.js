@@ -1,18 +1,34 @@
 import { View, Text, Image } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { assets, COLORS, FONTS, SIZES, userPreferences } from '../constants'
+import { BASE_URL } from '@env'
+import useToken from '../hooks/useToken'
 
 const InfoDisplay = ({product}) => {
 
-    let isSuitable = true
+    const [isSuitable, setIsSuitable] = useState(false)
+    const { fetchToken } = useToken()
 
-    for (let i = 0; i < Object.keys(userPreferences).length; i++) {
-        if(userPreferences[Object.keys(userPreferences)[i]]){
-            if(!product[Object.keys(userPreferences)[i]]){
-                isSuitable = false
-            } 
-        }
-    }
+    useEffect(() => {
+        fetchToken().then((token) => {
+            fetch(`${BASE_URL}/product/consume/${product.id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.log('Status Code: ', response.status);
+                    throw new Error(response.status);
+                }
+                return response.json();
+            })
+            .then(data => console.log(data))
+            .catch(error => console.log(error))
+        })
+    }, [])
 
     const backgroundColor = isSuitable ? COLORS.check : COLORS.attention
 

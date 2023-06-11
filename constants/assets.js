@@ -19,6 +19,7 @@ import proteinIcon from "../assets/icons/protein-icon.png";
 import saltIcon from "../assets/icons/salt-icon.png";
 import fatIcon from "../assets/icons/fat-icon.png";
 import fiberIcon from "../assets/icons/fiber-icon.png";
+import saturated_fatIcon from "../assets/icons/saturated_fatIcon.png";
 import takePictureIcon from "../assets/icons/take-picture-icon.png";
 import logoutIcon from "../assets/icons/logout.png";
 import logoutIconWhite from "../assets/icons/logout-white.png";
@@ -77,6 +78,7 @@ export default {
     saltIcon,
     fatIcon,
     fiberIcon,
+    saturated_fatIcon,
     takePictureIcon,
     changeIcon,
     logoutIcon,

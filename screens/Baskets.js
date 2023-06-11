@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.secondary
     },
     content: {
-        flex: 2,
+        flex: 3,
         flexDirection: 'column',
         paddingVertical: SIZES.base,
     },

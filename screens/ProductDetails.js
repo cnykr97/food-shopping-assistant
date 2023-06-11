@@ -8,7 +8,7 @@ import InfoDisplay from '../components/InfoDisplay'
 
 
 const ContentDisplay = ({product}) => {
-  const content = product.content
+  const content = product.nutrition
   const keys = Object.keys(content)
 
   return keys.map( (key) => {
