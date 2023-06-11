@@ -50,7 +50,7 @@ const Profile = ({ route }) => {
                   />
                   <Text style={styles.buttonText}>Shopping Baskets</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate("ChangePreferences", {user, navigation})}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate("ChangePreferences", {navigation})}>
                   <Image 
                     source={assets.changeIcon} 
                     resizeMode="contain"  

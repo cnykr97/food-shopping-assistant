@@ -14,18 +14,13 @@ const BasketDetails = ({route, navigation}) => {
    const [items, setItems] = useState(basket.products)
 
    const DisplayItems = () => {
-
-    const handleRemove = (product) => {
-        setItems((items) => items.filter(item => item.id!== product.id))
-        
-    }
     if (items.length>0) {
         return items.map((product) => {
             return (
                 <TouchableOpacity style={styles.itemRow} key={product.id} onPress={() => {navigation.navigate("ProductDetails", {product, navigation})}} >
                     <Image source={product.image} style={{width: 75, height: 75, borderRadius:SIZES.base}} />
                     <Text> {product.name} </Text>
-                    <TouchableOpacity onPress={() => handleRemove(product)} >
+                    <TouchableOpacity onPress={() => handleRemoveItem(product)} >
                         <Image source={assets.removeIcon} />
                     </TouchableOpacity>
                 </TouchableOpacity>
@@ -34,6 +29,30 @@ const BasketDetails = ({route, navigation}) => {
     }
     return <Text style={{textAlign: 'center', margin: SIZES.base}} >Basket is empty</Text>
    }
+
+   const handleRemoveItem = (product) => {
+        fetchToken().then((token) => {
+            fetch(`${BASE_URL}/basket/${basket.id}`,{
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token,
+                }, 
+                body: JSON.stringify({
+                    "name": basket.name,
+                    "products": basket.products.filter(itemId => itemId !== product.id)
+                })
+            })
+        })
+        .then((response) =>{
+            if (response.ok) {
+                setItems((items) => items.filter(item => item.id !== product.id))
+            }
+        })
+        .then(() => setTotalCalories((prev) => prev - product.nutrition.calories ))
+        .catch(err => console.log(err))
+        
+    }
 
    const handleDeleteBasket = () => {
     fetchToken().then(token => {

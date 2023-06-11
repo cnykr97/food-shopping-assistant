@@ -122,7 +122,7 @@ const ProductCard = ({ product, user }) => {
         <View style={{width:"100%", height:250}} >
           <TouchableOpacity onPress={() => navigation.navigate("ProductDetails", {product, navigation, user}) } >
             <Image 
-                source={product.image}
+                source={product.photo_url}
                 resizeMode="contain"
                 style={{
                     width:"100%",

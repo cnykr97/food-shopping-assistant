@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, KeyboardAvoidingView, StyleSheet, Image, Dimensions, TextInput, TouchableOpacity, Switch } from 'react-native'
+import { View, Text, SafeAreaView, KeyboardAvoidingView, StyleSheet, Image, Dimensions, TextInput, TouchableOpacity, Switch, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { CircularButton, FocusedStatusBar } from '../components'
 import { COLORS, SIZES, assets } from '../constants'
@@ -21,11 +21,15 @@ const SignUp = ({route, navigation}) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
 
     const [isGlutenFree, setIsGlutenFree] = useState(false);
     const [isCeliacFree, setIsCeliacFree] = useState(false);
     const [isLactoseFree, setIsLactoseFree] = useState(false);
     const [isVegan, setIsVegan] = useState(false);
+    const [isOrganic, setIsOrganic] = useState(false);
+    const [isPeanut, setIsPeanut] = useState(false);
+    const [isSesame, setIsSesame] = useState(false);
 
     const handleSignUp = () => {
         if (!email || !password) {
@@ -37,19 +41,31 @@ const SignUp = ({route, navigation}) => {
         const dietPreferences = [];
 
         if (isGlutenFree) {
-            dietPreferences.push(JSON.stringify({ name: "GlutenFree", cant_consume: [{ name: "Gluten" }] }));
+            dietPreferences.push("gluten_intolerance");
         }
 
         if (isCeliacFree) {
-            dietPreferences.push(JSON.stringify({ name: "Celiac", cant_consume: [{ name: "Gluten" }] }));
+            dietPreferences.push("celiac");
         }
 
         if (isLactoseFree) {
-            dietPreferences.push(JSON.stringify({ name: "LactoseFree", cant_consume: [{ name: "Lactose" }] }));
+            dietPreferences.push("lactose");
         }
 
         if (isVegan) {
-            dietPreferences.push(JSON.stringify({ name: "Vegan", cant_consume: [{ name: "AnimalProducts" }] }));
+            dietPreferences.push("vegan");
+        }
+
+        if (isOrganic) {
+            dietPreferences.push("organic");
+        }
+
+        if (isPeanut) {
+            dietPreferences.push("peanut_allergy");
+        }
+
+        if (isSesame) {
+            dietPreferences.push("sesame_allergy");
         }
 
         fetch('http://52.206.14.6:8000/users/', {
@@ -58,11 +74,11 @@ const SignUp = ({route, navigation}) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                name: "User's Name",
+                name: name,
                 surname: "User's Surname",
                 email: email,
                 password: password,
-                diet: [],
+                diet: dietPreferences,
             })
         })
         .then((response) => response.json())
@@ -99,6 +115,13 @@ const SignUp = ({route, navigation}) => {
                 { emailAlreadyTaken && <EmailAlreadyTakenMessage/> }
                 <TextInput
                     style={styles.inputField}
+                    onChangeText={setName}
+                    value={name}
+                    placeholder="Name"
+                    placeholderTextColor={COLORS.primary}
+                />
+                <TextInput
+                    style={styles.inputField}
                     onChangeText={setEmail}
                     value={email}
                     keyboardType='email-address'
@@ -114,13 +137,13 @@ const SignUp = ({route, navigation}) => {
                     placeholderTextColor={COLORS.primary}
                 />
             </KeyboardAvoidingView>
-            <View style={styles.preferencesSection}>
-                <Text style={{color:COLORS.secondary, fontSize: SIZES.large, fontWeight: 'bold', marginBottom: SIZES.extraLarge*1.5}} >Please set your preferences:</Text>
+                <Text style={{color:COLORS.secondary, fontSize: SIZES.large, fontWeight: 'bold', margin: SIZES.medium}} >Please set your preferences:</Text>
+            <ScrollView style={styles.preferencesSection} >
                 <View style={styles.preference}>
                     <Text style={styles.preferenceTitle}>I have gluten intolerance</Text>
                     <Switch 
                         value={isGlutenFree} 
-                        onValueChange={() => setIsGlutenFree(!isGlutenFree)}
+                        onValueChange={() => setIsGlutenFree(prev => !prev)}
                         trackColor={{false: COLORS.primary, true: COLORS.secondary}}
                         />
                 </View>
@@ -129,7 +152,7 @@ const SignUp = ({route, navigation}) => {
                     <Text style={styles.preferenceTitle}>I am Celiac</Text>
                     <Switch 
                         value={isCeliacFree} 
-                        onValueChange={() => setIsCeliacFree(!isCeliacFree)} 
+                        onValueChange={() => setIsCeliacFree(prev => !prev)} 
                         trackColor={{false: COLORS.primary, true: COLORS.secondary}}
                         />
                 </View>
@@ -138,7 +161,7 @@ const SignUp = ({route, navigation}) => {
                     <Text style={styles.preferenceTitle}>I have lactose intolerance</Text>
                     <Switch 
                         value={isLactoseFree} 
-                        onValueChange={() => setIsLactoseFree(!isLactoseFree)} 
+                        onValueChange={() => setIsLactoseFree(prev => !prev)} 
                         trackColor={{false: COLORS.primary, true: COLORS.secondary}}
                         />
                 </View>
@@ -147,34 +170,58 @@ const SignUp = ({route, navigation}) => {
                     <Text style={styles.preferenceTitle}>I am vegan</Text>
                     <Switch 
                         value={isVegan} 
-                        onValueChange={() => setIsVegan(!isVegan)} 
+                        onValueChange={() => setIsVegan(prev => !prev)} 
                         trackColor={{false: COLORS.primary, true: COLORS.secondary}}
                         />
                 </View>
-                <View style={{alignItems: 'center'}} >
-                    <TouchableOpacity style={styles.button} onPress={handleSignUp} >
-                        <Text style={styles.buttonText} > Sign Up </Text>
-                    </TouchableOpacity>
+                <View style={styles.preference}>
+                    <Text style={styles.preferenceTitle}>I want organic foods</Text>
+                    <Switch 
+                        value={isOrganic} 
+                        onValueChange={() => setIsOrganic(prev => !prev)} 
+                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                        />
                 </View>
-            </View>
+                <View style={styles.preference}>
+                    <Text style={styles.preferenceTitle}>I have peanut allergy</Text>
+                    <Switch 
+                        value={isPeanut} 
+                        onValueChange={() => setIsPeanut(prev => !prev)} 
+                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                        />
+                </View>
+                <View style={styles.preference}>
+                    <Text style={styles.preferenceTitle}>I have sesame allergy</Text>
+                    <Switch 
+                        value={isSesame} 
+                        onValueChange={() => setIsSesame(prev => !prev)} 
+                        trackColor={{false: COLORS.primary, true: COLORS.secondary}}
+                        />
+                </View>
                 
+            </ScrollView>
+            <View style={{alignItems: 'center', marginTop: -SIZES.extraLarge}} >
+                <TouchableOpacity style={styles.button} onPress={handleSignUp} >
+                    <Text style={styles.buttonText} > Sign Up </Text>
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        display: 'flex',
         flexDirection: 'column'
     },
     header: {
-        flex: 1,
+        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: COLORS.white
     },
     content: {
-        flex: 1,
+        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: COLORS.secondary,
@@ -186,7 +233,7 @@ const styles = StyleSheet.create({
         margin: SIZES.base
     },
     preferencesSection: {
-        flex: 2,
+        display: 'flex',
         padding: SIZES.extraLarge,
         backgroundColor: COLORS.white,
     },
