@@ -22,21 +22,21 @@ export default function useToken() {
   }
 
   const fetchUser = async () => {
-  try {
-    const token = await fetchToken();
-    const response = await fetch(`${BASE_URL}/users/current`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }
-    });
-    const json = await response.json();
-    return json;
-  } catch (error) {
-    console.error(error);
-  }
-};
+    try {
+      const token = await fetchToken();
+      const response = await fetch(`${BASE_URL}/users/current`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        }
+      });
+      const json = await response.json();
+      return json;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return {storeToken, fetchToken, fetchUser}
 }

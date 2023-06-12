@@ -1,10 +1,11 @@
 import { View, Text, SafeAreaView, StyleSheet, Image, Dimensions, TouchableOpacity, ScrollView, Animated, TextInput, Button } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { CircularButton, FocusedStatusBar } from '../components'
 import BasketItemRow from '../components/BasketItemRow'
 import { COLORS, SIZES, assets } from '../constants'
 import useToken from '../hooks/useToken';
 import { BASE_URL } from '@env'
+import FavoritesContext from '../context/FavoritesContext'
 
 const Baskets = ({navigation}) => {
 
@@ -14,7 +15,8 @@ const Baskets = ({navigation}) => {
 
    const [isCreatingBasket, setIsCreatingBasket] = useState(false)
 
-   const [baskets, setBaskets] = useState([])
+   //const [baskets, setBaskets] = useState([])
+   const { baskets, setBaskets } = useContext(FavoritesContext);
 
    useEffect(() => {
     fetchToken().then((token) => {
@@ -65,7 +67,7 @@ const Baskets = ({navigation}) => {
                     body: JSON.stringify(newBasket)
                 })
                 .then((response => response.json()))
-                .then(json => setBaskets({...baskets, ...json}))
+                .then(json => setBaskets([...baskets, json]))
                 .finally(() => setNewBasketName(''))
             })
             

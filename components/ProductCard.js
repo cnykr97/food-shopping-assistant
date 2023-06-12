@@ -12,8 +12,10 @@ import FavoritesContext from '../context/FavoritesContext';
 const ProductCard = ({ product }) => {
   const navigation = useNavigation();
   
-  const { favorites, setFavorites, isInFavorites, setIsInFavorites } = useContext(FavoritesContext);
-  //const [isInFavorites, setIsInFavorites] = useState(false)
+  const { favorites, setFavorites } = useContext(FavoritesContext);
+  const { baskets, setBaskets } = useContext(FavoritesContext);
+
+  const [isInFavorites, setIsInFavorites] = useState(false)
 
   const [addToBasketSection, setaddToBasketSection] = useState(false)
 
@@ -21,11 +23,12 @@ const ProductCard = ({ product }) => {
 
   const { fetchToken, fetchUser } = useToken()
 
-  let user;
+  const [user, setUser] = useState({})
 
   useEffect(() => {
     async function fetchUserData() {
-      user = await fetchUser();
+      const user = await fetchUser();
+      setUser(user)
       user["likes"].map(item => {
         if (item.id === product.id) {
           setIsInFavorites(true)
@@ -33,7 +36,7 @@ const ProductCard = ({ product }) => {
       })
     }
     fetchUserData();
-  }, [])
+  }, [favorites])
 
   const addToFavorites = () => {
     setIsProcessing(true)
@@ -52,6 +55,7 @@ const ProductCard = ({ product }) => {
         }
         setIsInFavorites(prev => !prev)
         setFavorites([...favorites, product])
+        //setFavorites(prevFavorites => [...prevFavorites, { ...product, isFavorite: true }])
       })
       .catch(err => console.log(err))
       .finally(() => setIsProcessing(false))
@@ -75,6 +79,7 @@ const ProductCard = ({ product }) => {
         }
         setIsInFavorites(prev => !prev)
         setFavorites(favorites.filter(item => item.id !== product.id))
+        //setFavorites(prevFavorites => prevFavorites.filter(item => item.id !== product.id))
       })
       .catch(err => console.log(err))
       .finally(() => setIsProcessing(false))
@@ -85,16 +90,49 @@ const ProductCard = ({ product }) => {
     isInFavorites ? removeFromFavorites() : addToFavorites() 
   }
 
-  const AddToBasketSection = ({user, product}) => {
-    const [selectedBasket, setselectedBasket] = useState(user.baskets[0].id)
+  const handleAddToBasket = (selectedBasket) => {
+    const updatedBasket = [product.id];
+    selectedBasket.products.map((product) => updatedBasket.push(product.id))
+
+    fetchToken().then(token => {
+      fetch(`${BASE_URL}/basket/${selectedBasket.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({
+          name: selectedBasket.name,
+          products: updatedBasket
+        })
+      })
+      .then(response => {
+          if (!response.ok) {
+              console.log('Status Code: ', response.status);
+              throw new Error(response.status);
+          }
+          return response.json();
+      })
+      .then( json  => {
+        let updatedBaskets = baskets.map((basket) => 
+          basket.id === selectedBasket.id ? json : basket
+        );
+        setBaskets(updatedBaskets)
+      })
+      .catch(err => console.log(err))
+    })
+  }
+
+  const AddToBasketSection = () => {
+    const [selectedBasket, setselectedBasket] = useState({})
 
     return (
       <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between', padding: SIZES.font}} >
         <SelectDropdown 
           data={user.baskets}
-          onSelect={(selectedBasket, index) => setselectedBasket(selectedBasket)}
-          buttonTextAfterSelection={(selectedItem, index) => {return selectedItem.basketName} }
-          rowTextForSelection={(basket, index) => {return basket.basketName}}
+          onSelect={(selectedBasket) => setselectedBasket(selectedBasket)}
+          buttonTextAfterSelection={(selectedItem, index) => {return selectedItem.name} }
+          rowTextForSelection={(basket, index) => {return basket.name}}
           defaultButtonText='select a basket'
           buttonStyle={{
             borderRadius: SIZES.font,
@@ -116,7 +154,7 @@ const ProductCard = ({ product }) => {
           alignItems: 'center',
           borderRadius: SIZES.font,
           padding: SIZES.base
-        }} >
+        }} onPress={() => handleAddToBasket(selectedBasket)} disabled={!selectedBasket || !selectedBasket.products} >
           <Image source={assets.plusWhite} />
           <Text style={{color: COLORS.white, fontWeight: 'bold', paddingHorizontal: SIZES.medium}} >Add</Text>
         </TouchableOpacity>
@@ -161,7 +199,7 @@ const ProductCard = ({ product }) => {
             height={50} 
             right={10} 
             top={70}
-            handlePress= {handleFavorites}
+            handlePress= {() => setaddToBasketSection(prev => !prev)}
             disabled={isProcessing}
             />
           <ProductContentIcons product={product} />
@@ -172,7 +210,7 @@ const ProductCard = ({ product }) => {
               {/* <Text style={{ fontFamily: FONTS.light }} > {product.weight} </Text> */}
         </View>
         <View>
-          {addToBasketSection ? <AddToBasketSection user={user} product={product}/> : null}
+          {user && addToBasketSection ? <AddToBasketSection /> : null}
         </View>
         
     </View>

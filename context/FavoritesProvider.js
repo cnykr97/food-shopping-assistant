@@ -3,13 +3,13 @@ import FavoritesContext from './FavoritesContext';
 
 const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
-  const [isInFavorites, setIsInFavorites] = useState(false)
+  const [baskets, setBaskets] = useState([])
 
   const value = {
     favorites,
     setFavorites,
-    isInFavorites,
-    setIsInFavorites
+    baskets,
+    setBaskets
   };
 
   return (
