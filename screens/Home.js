@@ -35,6 +35,7 @@ const Home = ({ route }) => {
       })
 
     }else {
+      setSearchData([])
       return console.log("no parameter for search")
     }
 
