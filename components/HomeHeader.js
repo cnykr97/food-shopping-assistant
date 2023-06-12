@@ -1,7 +1,11 @@
 import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 import {COLORS, FONTS, SIZES, assets} from '../constants'
+import { useState } from 'react'
 
-const HomeHeader = ({onSearch, user}) => {
+const HomeHeader = ({onSearch, userName}) => {
+
+  const [searchParameter, setSearchParameter] = useState('')
+
   return (
     <View style={{
         backgroundColor: COLORS.white,
@@ -25,7 +29,7 @@ const HomeHeader = ({onSearch, user}) => {
 
       <View style={{marginVertical: SIZES.font}} >
         <Text style={{fontFamily:FONTS.regular, fontSize: SIZES.small}} >
-          {"Hello " + user.name + " 👋"}
+          {"Hello " + userName + " 👋"}
         </Text>
 
         <View style={{ marginTop: SIZES.font }} >
@@ -48,17 +52,26 @@ const HomeHeader = ({onSearch, user}) => {
               }} 
             />
             <TextInput
+              value={searchParameter}
               placeholder='Search for products'
               style={{flex:1, color: COLORS.white}}
-              onChangeText={onSearch}
+              onChangeText={(textValue) => setSearchParameter(textValue)}
             />
+            <TouchableOpacity style={{backgroundColor: COLORS.white, padding: 5, borderRadius: 10}} onPress={() => onSearch(searchParameter)} >
+              <Text style={{color: COLORS.secondary}} >Search</Text>
+            </TouchableOpacity>
             </View>
           </View>
 
-        <Text style={{ fontFamily: FONTS.bold, fontSize: SIZES.large, marginTop: SIZES.font, marginBottom: -SIZES.font }} >
+        { searchParameter.length>0 ? <Text style={{ fontFamily: FONTS.bold, fontSize: SIZES.large, marginTop: SIZES.font, marginBottom: -SIZES.font }} >
+          Search Results: </Text> : 
+          <Text style={{ fontFamily: FONTS.bold, fontSize: SIZES.large, marginTop: SIZES.font, marginBottom: -SIZES.font }} >
           Here are some suggestions for you!
         </Text>
+        }
       </View>
+
+      
 
       
     </View>

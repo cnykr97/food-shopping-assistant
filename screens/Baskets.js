@@ -39,7 +39,6 @@ const Baskets = ({navigation}) => {
                     key={basket.id}
                     basket={basket}
                     navigation={navigation}
-                    setBaskets = {setBaskets}
                 />
             )
         })
@@ -118,7 +117,8 @@ const Baskets = ({navigation}) => {
                 {isCreatingBasket && <CreateBasketField/> }
             </Animated.View>
             <Animated.ScrollView style={styles.content } >
-                {baskets && <DisplayBasketRows />}
+                {baskets && baskets.map( basket => <BasketItemRow basket={basket} navigation={navigation} key={basket.id} /> ) }
+                {/* {baskets && <DisplayBasketRows />} */}
             </Animated.ScrollView>
         </View>
         

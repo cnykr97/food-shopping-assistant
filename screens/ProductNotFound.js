@@ -8,6 +8,7 @@ const ProductNotFound = ({route, navigation}) => {
     const {photo} = route.params
 
     const [isSelected, setisSelected] = useState(false)
+    const [thanksNotification, setThanksNotification] = useState(false)
 
   return (
     <SafeAreaView style={styles.container} >
@@ -20,6 +21,9 @@ const ProductNotFound = ({route, navigation}) => {
             <Image source={assets.logo} resizeMode="contain" style={{width:240, height:200}} />
         </View>
         <View style={styles.content} >
+            <View style={{width: "100%"}} >
+                { thanksNotification && <Text style={{color: COLORS.check, fontSize:SIZES.large, fontWeight: 'bold', backgroundColor: COLORS.white, padding: SIZES.base, textAlign: 'center', width: "100%"}} >Thank you for your feedback !</Text>}
+            </View>
             <View style={styles.title} >  
                 <Text style={styles.titleHeader} >Sorry, </Text>
                 <Text style={styles.titleText} >We couldn't recognize the product in your photo {":("} </Text>
@@ -34,7 +38,7 @@ const ProductNotFound = ({route, navigation}) => {
                     <TextInput 
                     style={styles.inputText} 
                     />
-                    <TouchableOpacity style={styles.sendButton} >
+                    <TouchableOpacity style={styles.sendButton} onPress={() => setThanksNotification(true)} >
                         <Text style={{color: COLORS.secondary, fontSize: SIZES.medium}} >Send</Text>
                     </TouchableOpacity>
                 </View>

@@ -13,22 +13,31 @@ const Home = ({ route }) => {
 
   const { user} = route.params
 
-  const [productData, setProductData] = useState(ProductData)
+  const [searchData, setSearchData] = useState([])
 
   const [recommendeds, setRecommendeds] = useState([])
 
   const handleSearch = (textValue) => {
-    if(!textValue) {
-      setProductData(ProductData)
-    }
 
-    const filteredData = ProductData.filter( (product) => product.category.toLowerCase().includes(textValue.toLowerCase()) || product.name.toLowerCase().includes(textValue.toLowerCase()))
+    if (textValue) {
 
-    if(filteredData.length) {
-      setProductData(filteredData)
+      fetchToken().then(token => {
+        fetch(`${BASE_URL}/product/?page=1&items_per_page=200&search=${textValue}`,{
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
+        })
+        .then(response => response.json())
+        .then(json => setSearchData(json))
+        .catch(error => console.log(error));
+      })
+
     }else {
-      setProductData(ProductData)
+      return console.log("no parameter for search")
     }
+
   }
 
   useEffect(() => {
@@ -55,9 +64,10 @@ const Home = ({ route }) => {
       />
       <View>
         <View style={{height:"100%"}} >
-          <HomeHeader onSearch={handleSearch} user={user} />
-          <ScrollView vertical={true} >
-            {recommendeds && recommendeds.map((item) => <ProductCard product={item} key={item.id} />) }
+          <HomeHeader onSearch={handleSearch} userName={user.name} />
+          <ScrollView vertical={true}  >
+            {Array.isArray(searchData) && searchData.length===0 && recommendeds && recommendeds.map((item) => <ProductCard product={item} key={item.id} />) }
+            {Array.isArray(searchData) && searchData.length>0 && searchData.map((item) => <ProductCard product={item} key={item.id} />) }
           </ScrollView>
         </View>
 

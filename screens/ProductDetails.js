@@ -26,7 +26,7 @@ const ProductDetails = ({ route, navigation }) => {
   const user = fetchUser()
 
   return (
-    <SafeAreaView style={{ display:"flex", flexDirection:"column" }} >
+    <SafeAreaView style={{ display:"flex", flexDirection:"column" }} key={product.id}>
       <ScrollView>
         <FocusedStatusBar 
           barStyle="dark-content"

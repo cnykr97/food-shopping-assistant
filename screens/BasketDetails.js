@@ -1,17 +1,25 @@
 import { View, Text, SafeAreaView, StyleSheet, Image, Dimensions, TouchableOpacity, ScrollView} from 'react-native'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CircularButton, FocusedStatusBar } from '../components'
 import { COLORS, SIZES, assets } from '../constants'
 import { BASE_URL } from '@env'
 import useToken from '../hooks/useToken';
+import FavoritesContext from '../context/FavoritesContext';
 
 const BasketDetails = ({route, navigation}) => {
 
    const {width, height} = Dimensions.get('window');
-   const { basket, totalCalories, setTotalCalories, setBaskets } = route.params
+   const { basket, totalCalories, setTotalCalories } = route.params
    const { fetchToken } = useToken()
 
-   const [items, setItems] = useState(basket.products)
+   const { baskets, setBaskets } = useContext(FavoritesContext);
+
+   const [items, setItems] = useState([])
+
+   useEffect(() => {
+    setItems(basket.products);
+    }, [basket]);
+
 
    const DisplayItems = () => {
     if (items.length>0) {
@@ -31,7 +39,11 @@ const BasketDetails = ({route, navigation}) => {
    }
 
    const handleRemoveItem = (product) => {
-        fetchToken().then((token) => {
+        let newList = basket.products.filter(item => item.id !== product.id)
+        let newListIds = []
+        newList.forEach(item => newListIds.push(item.id))
+
+        fetchToken().then(token => {
             fetch(`${BASE_URL}/basket/${basket.id}`,{
                 method: 'PUT',
                 headers: {
@@ -39,18 +51,14 @@ const BasketDetails = ({route, navigation}) => {
                     'Authorization': 'Bearer ' + token,
                 }, 
                 body: JSON.stringify({
-                    "name": basket.name,
-                    "products": basket.products.filter(itemId => itemId !== product.id)
+                    name: basket.name,
+                    products : newListIds
                 })
             })
         })
-        .then((response) =>{
-            if (response.ok) {
-                setItems((items) => items.filter(item => item.id !== product.id))
-            }
-        })
+        .then(() => setItems((items) => items.filter(item => item.id !== product.id)))
         .then(() => setTotalCalories((prev) => prev - product.nutrition.calories ))
-        .catch(err => console.log(err))
+        .catch(err => console.log('Fetch Error: ', err));
         
     }
 

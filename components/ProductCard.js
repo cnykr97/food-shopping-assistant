@@ -36,7 +36,11 @@ const ProductCard = ({ product }) => {
       })
     }
     fetchUserData();
-  }, [favorites])
+  }, [favorites, baskets])
+
+  useEffect(() => {
+    setUser(prevUser => ({ ...prevUser, baskets: baskets }))
+  }, [baskets, favorites]);
 
   const addToFavorites = () => {
     setIsProcessing(true)
