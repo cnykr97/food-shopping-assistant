@@ -19,6 +19,7 @@ import BasketDetails from "./screens/BasketDetails";
 import ProductNotFound from "./screens/ProductNotFound";
 import { useState } from "react";
 import { BASE_URL } from "@env"
+import FavoritesProvider from './context/FavoritesProvider';
 
 // export NODE_OPTIONS=--openssl-legacy-provider
 
@@ -54,42 +55,46 @@ const Main = ({logout, theme, user}) => {
   const TakePhotoName = "TakePhoto"
   const ProfileName = "Profile"
   
-  return <NavigationContainer theme={theme}>
-      <Tab.Navigator  
-        initialRouteName={"homeName"}
-        screenOptions={({ route }) => ({
-          headerShown: false,
-          activeTintColor: COLORS.secondary,
-          inactiveTintColor: COLORS.gray,
-          labelStyle: { fontSize: 12 },
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            let rn = route.name;
+  return(
+    <FavoritesProvider>
+      <NavigationContainer theme={theme}>
+        <Tab.Navigator  
+          initialRouteName={"homeName"}
+          screenOptions={({ route }) => ({
+            headerShown: false,
+            activeTintColor: COLORS.secondary,
+            inactiveTintColor: COLORS.gray,
+            labelStyle: { fontSize: 12 },
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+              let rn = route.name;
 
-            if (rn === homeName) {
-              iconName = focused ? 'home' : 'home-outline';
-            } else if (rn === TakePhotoName) {
-              iconName = focused ? 'camera' : 'camera-outline';
-            } else if (rn === ProfileName) {
-              iconName = focused ? 'person' : 'person-outline';
-            } 
-            
-            return <IonIcons name={iconName} size={size} color={color} />
-          },
-        })}>
+              if (rn === homeName) {
+                iconName = focused ? 'home' : 'home-outline';
+              } else if (rn === TakePhotoName) {
+                iconName = focused ? 'camera' : 'camera-outline';
+              } else if (rn === ProfileName) {
+                iconName = focused ? 'person' : 'person-outline';
+              } 
+              
+              return <IonIcons name={iconName} size={size} color={color} />
+            },
+          })}>
 
-        <Tab.Screen name="Home" component={Home} initialParams={{user: user}} />
-        <Tab.Screen name="TakePhoto" component={TakePhoto}/>
-        <Tab.Screen name="Profile" component={Profile} initialParams={{user: user, logout: logout}} />
-        <Tab.Screen name="ProductDetails" component={ProductDetails} options={{ tabBarButton: HiddenTabBarButton }} />
-        <Tab.Screen name="ChangePreferences" component={ChangePreferences} options={{ tabBarButton: HiddenTabBarButton }} />
-        <Tab.Screen name="Baskets" component={Baskets} options={{ tabBarButton: HiddenTabBarButton }} />
-        <Tab.Screen name="Favorites" component={Favorites} options={{ tabBarButton: HiddenTabBarButton }} />
-        <Tab.Screen name="BasketDetails" component={BasketDetails} options={{ tabBarButton: HiddenTabBarButton }} />
-        <Tab.Screen name="ProductNotFound" component={ProductNotFound} options={{ tabBarButton: HiddenTabBarButton }} initialParams={{user: user}} />
-      </Tab.Navigator>
+          <Tab.Screen name="Home" component={Home} initialParams={{user: user}} />
+          <Tab.Screen name="TakePhoto" component={TakePhoto}/>
+          <Tab.Screen name="Profile" component={Profile} initialParams={{user: user, logout: logout}} />
+          <Tab.Screen name="ProductDetails" component={ProductDetails} options={{ tabBarButton: HiddenTabBarButton }} />
+          <Tab.Screen name="ChangePreferences" component={ChangePreferences}  options={{ tabBarButton: HiddenTabBarButton }} />
+          <Tab.Screen name="Baskets" component={Baskets}  options={{ tabBarButton: HiddenTabBarButton }} />
+          <Tab.Screen name="Favorites" component={Favorites}  options={{ tabBarButton: HiddenTabBarButton }} />
+          <Tab.Screen name="BasketDetails" component={BasketDetails} options={{ tabBarButton: HiddenTabBarButton }} />
+          <Tab.Screen name="ProductNotFound" component={ProductNotFound} options={{ tabBarButton: HiddenTabBarButton }} initialParams={{user: user}} />
+        </Tab.Navigator>
 
-    </NavigationContainer>
+      </NavigationContainer>
+    </FavoritesProvider>
+  )
 }
 
 const App = () => {

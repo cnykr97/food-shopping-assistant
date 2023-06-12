@@ -3,15 +3,18 @@ import {COLORS, SIZES, SHADOWS, assets, FONTS} from '../constants'
 import { CircularButton } from './Buttons'
 import ProductContentIcons from './ProductContentIcons'
 import { useNavigation } from '@react-navigation/native'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import SelectDropdown from 'react-native-select-dropdown'
 import { BASE_URL } from '@env'
 import useToken from '../hooks/useToken'
+import FavoritesContext from '../context/FavoritesContext';
 
 const ProductCard = ({ product }) => {
   const navigation = useNavigation();
+  
+  const { favorites, setFavorites, isInFavorites, setIsInFavorites } = useContext(FavoritesContext);
+  //const [isInFavorites, setIsInFavorites] = useState(false)
 
-  const [isInFavorites, setIsInFavorites] = useState(false)
   const [addToBasketSection, setaddToBasketSection] = useState(false)
 
   const [isProcessing, setIsProcessing] = useState(false)
@@ -48,6 +51,7 @@ const ProductCard = ({ product }) => {
           throw new Error(response.status);
         }
         setIsInFavorites(prev => !prev)
+        setFavorites([...favorites, product])
       })
       .catch(err => console.log(err))
       .finally(() => setIsProcessing(false))
@@ -70,6 +74,7 @@ const ProductCard = ({ product }) => {
             throw new Error(response.status);
         }
         setIsInFavorites(prev => !prev)
+        setFavorites(favorites.filter(item => item.id !== product.id))
       })
       .catch(err => console.log(err))
       .finally(() => setIsProcessing(false))

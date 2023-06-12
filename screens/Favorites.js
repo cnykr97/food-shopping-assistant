@@ -1,17 +1,17 @@
 import { View, Text, SafeAreaView, StyleSheet, Dimensions, Image, ScrollView } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { CircularButton, FocusedStatusBar, ProductCard } from '../components'
 import { COLORS, SIZES, assets } from '../constants'
-import { FlatList } from 'react-native-gesture-handler'
 import { BASE_URL } from '@env'
 import useToken from '../hooks/useToken';
+import FavoritesContext from '../context/FavoritesContext'
 
-const Favorites = ({navigation}) => {
+const Favorites = ({route, navigation}) => {
     const {width, height} = Dimensions.get('window');
 
     const { fetchToken } = useToken()
 
-    const [favorites, setFavorites] = useState([])
+    const { favorites, setFavorites } = useContext(FavoritesContext);
 
     useEffect(() => {
         fetchToken().then((token) => {

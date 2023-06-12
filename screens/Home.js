@@ -11,7 +11,7 @@ const Home = ({ route }) => {
 
   const {fetchToken} = useToken()
 
-  const { user } = route.params
+  const { user} = route.params
 
   const [productData, setProductData] = useState(ProductData)
 
@@ -59,14 +59,6 @@ const Home = ({ route }) => {
           <ScrollView vertical={true} >
             {recommendeds && recommendeds.map((item) => <ProductCard product={item} key={item.id} />) }
           </ScrollView>
-          
-          {/* { recommendeds && <FlatList 
-            data={recommendeds}
-            renderItem= { ({item}) => <ProductCard product={item} user={user} /> }
-            keyExtractor={(item) => item.id}
-            showsVerticalScrollIndicator={false}
-            //ListHeaderComponent={<HomeHeader onSearch={handleSearch} user={user} />}
-          />} */}
         </View>
 
         <View style={{
